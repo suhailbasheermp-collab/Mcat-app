@@ -1,0 +1,1600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"/>
+<meta name="theme-color" content="#0a0e1a"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<title>MCAT Mastery — MilesDown AI</title>
+<link rel="manifest" href="manifest.json"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+/* ═══════════════════════════════════════════════
+   MCAT MASTERY — DESIGN SYSTEM
+   Dark scientific aesthetic: deep navy + electric teal + amber
+═══════════════════════════════════════════════ */
+:root{
+  --navy:#0a0e1a; --navy2:#0f1526; --navy3:#151d35;
+  --teal:#00d4c8; --teal2:#00b8ad; --teal3:rgba(0,212,200,.12);
+  --amber:#f5a623; --amber2:#e8941a; --amber3:rgba(245,166,35,.12);
+  --rose:#ff6b8a; --rose3:rgba(255,107,138,.12);
+  --green:#4ade80; --green3:rgba(74,222,128,.12);
+  --text:#e8edf8; --text2:#8892b0; --text3:#4a5568;
+  --border:rgba(255,255,255,.07); --border2:rgba(255,255,255,.12);
+  --card:#111827; --card2:#1a2235;
+  --glow:0 0 30px rgba(0,212,200,.15);
+  --shadow:0 8px 32px rgba(0,0,0,.4);
+  --r:14px; --r2:10px;
+  --font:'DM Sans',sans-serif; --font2:'Syne',sans-serif; --mono:'JetBrains Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--navy);color:var(--text);font-family:var(--font);min-height:100vh;overflow-x:hidden;line-height:1.6}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--teal3);border-radius:4px}
+
+/* ─── TYPOGRAPHY ─── */
+h1,h2,h3,h4{font-family:var(--font2);line-height:1.2}
+.mono{font-family:var(--mono)}
+.teal{color:var(--teal)} .amber{color:var(--amber)} .rose{color:var(--rose)} .green{color:var(--green)}
+
+/* ─── LAYOUT ─── */
+#app{max-width:720px;margin:0 auto;padding:0 16px 100px}
+
+/* ─── HEADER ─── */
+.top-bar{
+  position:sticky;top:0;z-index:100;
+  background:rgba(10,14,26,.92);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  padding:12px 16px;margin:0 -16px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;
+}
+.logo{font-family:var(--font2);font-size:1.1rem;font-weight:800;
+  background:linear-gradient(135deg,var(--teal),var(--amber));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;letter-spacing:-.5px}
+.xp-bar{flex:1;max-width:200px}
+.xp-track{background:var(--navy3);border-radius:99px;height:6px;overflow:hidden}
+.xp-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--amber));
+  border-radius:99px;transition:width .5s ease;width:0%}
+.xp-label{font-size:.65rem;color:var(--text2);margin-bottom:2px;font-family:var(--mono)}
+.streak-badge{
+  display:flex;align-items:center;gap:5px;
+  background:var(--amber3);border:1px solid rgba(245,166,35,.3);
+  border-radius:99px;padding:5px 12px;font-size:.8rem;font-weight:600;color:var(--amber)
+}
+
+/* ─── NAVIGATION ─── */
+.nav{
+  position:fixed;bottom:0;left:0;right:0;z-index:100;
+  background:rgba(10,14,26,.95);backdrop-filter:blur(20px);
+  border-top:1px solid var(--border);
+  display:flex;padding:8px 0 max(8px,env(safe-area-inset-bottom))
+}
+.nav-btn{
+  flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
+  padding:8px 4px;background:none;border:none;cursor:pointer;
+  color:var(--text3);font-size:.65rem;font-family:var(--font);
+  transition:color .2s;
+}
+.nav-btn svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.nav-btn.active{color:var(--teal)}
+.nav-btn.active svg{filter:drop-shadow(0 0 6px var(--teal))}
+
+/* ─── VIEWS ─── */
+.view{display:none;animation:fadeUp .3s ease}
+.view.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+/* ─── HERO SECTION ─── */
+.hero{
+  text-align:center;padding:32px 0 24px;
+  background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(0,212,200,.08),transparent);
+}
+.hero h1{font-size:2rem;font-weight:800;margin-bottom:8px;
+  background:linear-gradient(135deg,#fff 40%,var(--teal));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{color:var(--text2);font-size:.9rem;max-width:380px;margin:0 auto}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);
+  padding:14px 10px;text-align:center}
+.stat-card .num{font-family:var(--font2);font-size:1.5rem;font-weight:700}
+.stat-card .lbl{font-size:.7rem;color:var(--text2);margin-top:2px}
+
+/* ─── SUBJECT GRID ─── */
+.section-title{font-size:.7rem;font-family:var(--mono);color:var(--teal);
+  text-transform:uppercase;letter-spacing:2px;margin:24px 0 12px}
+.subject-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.subject-card{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r);
+  padding:16px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden
+}
+.subject-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:var(--accent,var(--teal));transition:height .2s
+}
+.subject-card:hover,.subject-card:active{
+  border-color:var(--accent,var(--teal));transform:translateY(-2px);box-shadow:var(--shadow)
+}
+.subject-card:hover::before{height:100%;opacity:.04}
+.subject-icon{font-size:1.5rem;margin-bottom:8px}
+.subject-name{font-family:var(--font2);font-size:.85rem;font-weight:700;margin-bottom:4px}
+.subject-count{font-size:.7rem;color:var(--text2)}
+.subject-progress{margin-top:10px}
+.mini-bar{background:var(--navy3);border-radius:99px;height:3px}
+.mini-fill{height:100%;border-radius:99px;background:var(--accent,var(--teal));transition:width .5s}
+
+/* ─── TOPIC LIST ─── */
+.back-btn{
+  display:flex;align-items:center;gap:8px;
+  background:none;border:none;color:var(--teal);cursor:pointer;
+  font-family:var(--font);font-size:.9rem;padding:12px 0;
+}
+.topic-list{display:flex;flex-direction:column;gap:8px}
+.topic-item{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r2);
+  padding:14px 16px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;
+  transition:all .2s;
+}
+.topic-item:hover{border-color:var(--teal3);background:var(--card2)}
+.topic-info{flex:1}
+.topic-name{font-weight:500;font-size:.9rem}
+.topic-meta{font-size:.7rem;color:var(--text2);margin-top:2px}
+.topic-badge{
+  font-size:.65rem;font-family:var(--mono);padding:3px 8px;border-radius:99px;
+  background:var(--teal3);color:var(--teal);border:1px solid rgba(0,212,200,.2);
+  white-space:nowrap;margin-left:8px
+}
+.difficulty-badge{padding:2px 7px;border-radius:99px;font-size:.62rem;font-family:var(--mono)}
+.diff-easy{background:var(--green3);color:var(--green)}
+.diff-medium{background:var(--amber3);color:var(--amber)}
+.diff-hard{background:var(--rose3);color:var(--rose)}
+
+/* ─── QUIZ INTERFACE ─── */
+.quiz-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.progress-wrap{flex:1;margin:0 12px}
+.progress-track{background:var(--navy3);border-radius:99px;height:6px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--amber));
+  border-radius:99px;transition:width .4s ease}
+.q-counter{font-family:var(--mono);font-size:.75rem;color:var(--text2);white-space:nowrap}
+.q-meta{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.tag{
+  font-size:.62rem;font-family:var(--mono);padding:3px 8px;border-radius:99px;
+  background:var(--navy3);color:var(--text2);border:1px solid var(--border)
+}
+.q-card{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r);
+  padding:20px;margin-bottom:14px;
+  box-shadow:0 2px 12px rgba(0,0,0,.2)
+}
+.q-stem{font-size:1rem;line-height:1.65;font-weight:400}
+.q-stem sup,.q-stem sub{font-size:.75em}
+.hint-row{display:flex;align-items:center;gap:8px;margin-top:12px;flex-wrap:wrap}
+.hint-btn{
+  background:none;border:1px solid var(--border);color:var(--teal);
+  border-radius:99px;padding:5px 14px;font-size:.75rem;cursor:pointer;
+  font-family:var(--font);transition:all .2s
+}
+.hint-btn:hover{background:var(--teal3)}
+.hint-box{
+  margin-top:10px;background:var(--navy3);border-left:3px solid var(--amber);
+  border-radius:0 var(--r2) var(--r2) 0;padding:10px 14px;
+  font-size:.82rem;color:var(--text2);display:none;animation:fadeUp .2s ease
+}
+.hint-box.show{display:block}
+.options-list{display:flex;flex-direction:column;gap:8px}
+.opt-btn{
+  width:100%;background:var(--card2);border:1px solid var(--border);
+  border-radius:var(--r2);padding:14px 16px;cursor:pointer;
+  display:flex;align-items:flex-start;gap:12px;
+  text-align:left;color:var(--text);font-family:var(--font);font-size:.9rem;
+  transition:all .2s;position:relative;overflow:hidden
+}
+.opt-btn:hover:not(:disabled){border-color:var(--teal);background:var(--teal3)}
+.opt-btn:disabled{cursor:default}
+.opt-btn.correct{border-color:var(--green)!important;background:var(--green3)!important}
+.opt-btn.wrong{border-color:var(--rose)!important;background:var(--rose3)!important}
+.opt-letter{
+  width:26px;height:26px;border-radius:50%;background:var(--navy3);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:.75rem;font-weight:500;
+  flex-shrink:0;border:1px solid var(--border)
+}
+.opt-btn.correct .opt-letter{background:var(--green);border-color:var(--green);color:#000}
+.opt-btn.wrong .opt-letter{background:var(--rose);border-color:var(--rose);color:#000}
+.opt-text{flex:1;line-height:1.5}
+
+/* ─── FEEDBACK PANEL ─── */
+.feedback-panel{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r);
+  padding:18px;margin-bottom:14px;display:none;animation:fadeUp .3s ease
+}
+.feedback-panel.show{display:block}
+.feedback-result{font-family:var(--font2);font-size:1rem;font-weight:700;margin-bottom:8px}
+.feedback-result.correct{color:var(--green)}
+.feedback-result.wrong{color:var(--rose)}
+.distractor-note{
+  background:var(--navy3);border-radius:var(--r2);padding:10px 12px;
+  font-size:.8rem;color:var(--text2);margin-bottom:8px;
+  border-left:3px solid var(--rose)
+}
+.explanation{font-size:.85rem;line-height:1.65;color:var(--text2)}
+.explanation strong{color:var(--text)}
+.rate-row{margin-top:14px;display:flex;align-items:center;gap:8px}
+.rate-label{font-size:.75rem;color:var(--text2);margin-right:4px}
+.rate-btn{
+  padding:5px 12px;border-radius:99px;border:1px solid var(--border);
+  background:none;color:var(--text2);font-size:.75rem;cursor:pointer;
+  font-family:var(--font);transition:all .2s
+}
+.rate-btn:hover{border-color:var(--teal);color:var(--teal)}
+.rate-btn.selected{background:var(--teal3);border-color:var(--teal);color:var(--teal)}
+.action-btn{
+  width:100%;padding:14px;border-radius:var(--r);border:none;cursor:pointer;
+  font-family:var(--font2);font-size:1rem;font-weight:700;transition:all .2s
+}
+.action-btn.primary{
+  background:linear-gradient(135deg,var(--teal),var(--teal2));color:#000;
+  box-shadow:0 4px 20px rgba(0,212,200,.3)
+}
+.action-btn.primary:hover{transform:translateY(-2px);box-shadow:0 6px 28px rgba(0,212,200,.4)}
+.action-btn.secondary{background:var(--card2);color:var(--text);border:1px solid var(--border)}
+
+/* ─── LOADING ─── */
+.generating-screen{
+  display:none;flex-direction:column;align-items:center;justify-content:center;
+  padding:60px 20px;text-align:center;gap:16px
+}
+.generating-screen.show{display:flex}
+.ai-spinner{
+  width:56px;height:56px;border-radius:50%;
+  border:3px solid var(--navy3);border-top-color:var(--teal);
+  animation:spin 1s linear infinite
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.gen-steps{width:100%;max-width:280px;display:flex;flex-direction:column;gap:6px}
+.gen-step{
+  font-size:.78rem;color:var(--text3);padding:7px 12px;border-radius:var(--r2);
+  background:var(--navy3);display:flex;align-items:center;gap:8px;
+  transition:all .4s
+}
+.gen-step.active{color:var(--teal);background:var(--teal3);border:1px solid rgba(0,212,200,.2)}
+.gen-step.done{color:var(--green);background:var(--green3)}
+.gen-step-dot{width:6px;height:6px;border-radius:50%;background:currentColor;flex-shrink:0}
+
+/* ─── API KEY SETUP ─── */
+.setup-card{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r);
+  padding:24px;margin:20px 0
+}
+.setup-card h3{font-size:1.1rem;margin-bottom:6px}
+.setup-card p{font-size:.82rem;color:var(--text2);margin-bottom:16px;line-height:1.6}
+.input-group{margin-bottom:12px}
+.input-group label{font-size:.75rem;color:var(--text2);font-family:var(--mono);display:block;margin-bottom:6px}
+.input-field{
+  width:100%;background:var(--navy3);border:1px solid var(--border);
+  border-radius:var(--r2);padding:11px 14px;color:var(--text);
+  font-family:var(--mono);font-size:.85rem;outline:none;
+  transition:border-color .2s
+}
+.input-field:focus{border-color:var(--teal)}
+.input-field::placeholder{color:var(--text3)}
+.setup-tip{
+  background:var(--amber3);border:1px solid rgba(245,166,35,.2);border-radius:var(--r2);
+  padding:10px 14px;font-size:.78rem;color:var(--amber);margin-bottom:14px
+}
+
+/* ─── DASHBOARD ─── */
+.dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.dash-card{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r);
+  padding:16px
+}
+.dash-card.full{grid-column:1/-1}
+.dash-num{font-family:var(--font2);font-size:2rem;font-weight:800}
+.dash-label{font-size:.72rem;color:var(--text2);margin-top:2px}
+.heatmap{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-top:10px}
+.heat-cell{
+  aspect-ratio:1;border-radius:3px;background:var(--navy3);
+  transition:transform .2s
+}
+.heat-cell[data-level="1"]{background:rgba(0,212,200,.25)}
+.heat-cell[data-level="2"]{background:rgba(0,212,200,.5)}
+.heat-cell[data-level="3"]{background:rgba(0,212,200,.75)}
+.heat-cell[data-level="4"]{background:var(--teal)}
+.subject-bars{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.sbar-row{display:flex;align-items:center;gap:10px}
+.sbar-name{font-size:.75rem;color:var(--text2);width:90px;flex-shrink:0}
+.sbar-track{flex:1;background:var(--navy3);border-radius:99px;height:8px;overflow:hidden}
+.sbar-fill{height:100%;border-radius:99px;transition:width .8s ease}
+.sbar-pct{font-family:var(--mono);font-size:.7rem;color:var(--text2);width:36px;text-align:right}
+.recent-list{display:flex;flex-direction:column;gap:6px;margin-top:10px}
+.recent-item{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:8px 12px;background:var(--navy3);border-radius:var(--r2);
+  font-size:.8rem
+}
+.recent-item .subj{color:var(--text2)}
+.recent-item .score{font-family:var(--mono);font-weight:500}
+.score.good{color:var(--green)}.score.mid{color:var(--amber)}.score.bad{color:var(--rose)}
+
+/* ─── RESULTS SCREEN ─── */
+.result-screen{display:none;text-align:center;padding:20px 0;animation:fadeUp .4s ease}
+.result-screen.show{display:block}
+.result-ring{
+  width:120px;height:120px;border-radius:50%;margin:0 auto 20px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:conic-gradient(var(--teal) var(--pct,0%),var(--navy3) 0);
+  box-shadow:0 0 30px rgba(0,212,200,.2)
+}
+.result-pct{font-family:var(--font2);font-size:1.8rem;font-weight:800}
+.result-label{font-size:.7rem;color:var(--text2)}
+.result-breakdown{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r);
+  padding:16px;margin:16px 0;text-align:left
+}
+.rb-row{display:flex;justify-content:space-between;align-items:center;
+  padding:8px 0;border-bottom:1px solid var(--border)}
+.rb-row:last-child{border:none}
+
+/* ─── REVIEW WRONG ─── */
+.wrong-list{display:flex;flex-direction:column;gap:12px;margin-top:10px}
+.wrong-item{
+  background:var(--card);border:1px solid rgba(255,107,138,.2);
+  border-radius:var(--r2);padding:14px
+}
+.wrong-item .stem{font-size:.85rem;margin-bottom:8px;line-height:1.5}
+.wrong-item .correct-ans{font-size:.8rem;color:var(--green);margin-bottom:4px}
+.wrong-item .explain{font-size:.78rem;color:var(--text2);line-height:1.5}
+
+/* ─── REFERENCE VIEW ─── */
+.ref-search{
+  width:100%;background:var(--card);border:1px solid var(--border);
+  border-radius:99px;padding:11px 18px;color:var(--text);
+  font-family:var(--font);font-size:.9rem;outline:none;margin-bottom:16px;
+  transition:border-color .2s
+}
+.ref-search:focus{border-color:var(--teal)}
+.ref-cards{display:flex;flex-direction:column;gap:8px}
+.ref-card{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r);
+  overflow:hidden
+}
+.ref-card-head{
+  padding:14px 16px;cursor:pointer;display:flex;justify-content:space-between;
+  align-items:center;transition:background .2s
+}
+.ref-card-head:hover{background:var(--card2)}
+.ref-card-title{font-weight:600;font-size:.9rem}
+.ref-card-pg{font-family:var(--mono);font-size:.7rem;color:var(--text3)}
+.ref-card-body{
+  padding:0 16px;max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s;
+  font-size:.82rem;line-height:1.7;color:var(--text2);
+  border-top:0 solid var(--border);
+}
+.ref-card-body.open{max-height:600px;padding:14px 16px;border-top:1px solid var(--border)}
+.ref-card-body h4{color:var(--text);font-size:.85rem;margin:8px 0 4px}
+.ref-chevron{transition:transform .3s}
+.ref-chevron.open{transform:rotate(180deg)}
+
+/* ─── TOAST ─── */
+.toast{
+  position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);
+  background:var(--card2);border:1px solid var(--border);border-radius:99px;
+  padding:10px 20px;font-size:.82rem;white-space:nowrap;
+  opacity:0;transition:all .3s;pointer-events:none;z-index:200
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ─── DAILY DUE ─── */
+.due-banner{
+  background:linear-gradient(135deg,var(--teal3),var(--amber3));
+  border:1px solid rgba(0,212,200,.2);border-radius:var(--r);
+  padding:14px 16px;display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:16px;cursor:pointer;transition:all .2s
+}
+.due-banner:hover{transform:translateY(-1px);box-shadow:var(--glow)}
+.due-info h3{font-size:.95rem;font-weight:600}
+.due-info p{font-size:.75rem;color:var(--text2);margin-top:2px}
+.due-count{
+  font-family:var(--font2);font-size:2rem;font-weight:800;color:var(--teal);
+  text-shadow:0 0 20px rgba(0,212,200,.4)
+}
+
+/* ─── QUIZ GENERATOR CONTROLS ─── */
+.gen-controls{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r);
+  padding:16px;margin-bottom:16px
+}
+.ctrl-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.ctrl-label{font-size:.8rem;color:var(--text2)}
+.select-pill{
+  background:var(--navy3);border:1px solid var(--border);border-radius:99px;
+  padding:6px 14px;color:var(--text);font-size:.8rem;font-family:var(--font);
+  cursor:pointer;outline:none;transition:border-color .2s
+}
+.select-pill:focus{border-color:var(--teal)}
+.chip-row{display:flex;gap:6px;flex-wrap:wrap}
+.chip{
+  padding:5px 12px;border-radius:99px;font-size:.73rem;cursor:pointer;
+  border:1px solid var(--border);background:var(--navy3);color:var(--text2);
+  transition:all .2s
+}
+.chip.active{border-color:var(--teal);background:var(--teal3);color:var(--teal)}
+.chip.amber.active{border-color:var(--amber);background:var(--amber3);color:var(--amber)}
+.chip.rose.active{border-color:var(--rose);background:var(--rose3);color:var(--rose)}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:380px){
+  .subject-grid{grid-template-columns:1fr}
+  .stats-row{grid-template-columns:1fr 1fr 1fr}
+  .dash-grid{grid-template-columns:1fr}
+  .dash-card.full{grid-column:1}
+}
+</style>
+</head>
+<body>
+
+<div id="toast" class="toast"></div>
+
+<!-- TOP BAR -->
+<header class="top-bar">
+  <div class="logo">⚡ MCAT Mastery</div>
+  <div class="xp-bar">
+    <div class="xp-label mono" id="xpLabel">0 XP · Lv 1</div>
+    <div class="xp-track"><div class="xp-fill" id="xpFill"></div></div>
+  </div>
+  <div class="streak-badge" id="streakBadge">🔥 0</div>
+</header>
+
+<div id="app">
+
+  <!-- ═══════════ HOME VIEW ═══════════ -->
+  <div class="view active" id="homeView">
+    <div class="hero">
+      <h1>Master the MCAT</h1>
+      <p>AI-powered questions from all 92 pages of MilesDown. Spaced repetition. 3000+ questions.</p>
+    </div>
+
+    <div id="dueBanner" class="due-banner" onclick="startDueSession()" style="display:none">
+      <div class="due-info">
+        <h3>📚 Cards Due for Review</h3>
+        <p>SM-2 spaced repetition queue</p>
+      </div>
+      <div class="due-count" id="dueCount">0</div>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="num teal" id="statTotal">0</div>
+        <div class="lbl">Questions Done</div>
+      </div>
+      <div class="stat-card">
+        <div class="num amber" id="statAcc">—</div>
+        <div class="lbl">Accuracy</div>
+      </div>
+      <div class="stat-card">
+        <div class="num green" id="statMastered">0</div>
+        <div class="lbl">Mastered</div>
+      </div>
+    </div>
+
+    <div class="section-title">📖 Choose a Subject</div>
+    <div class="subject-grid" id="subjectGrid"></div>
+
+    <div id="apiSetupCard" style="display:none">
+      <div class="setup-card">
+        <h3>🔑 Set Your Gemini API Key</h3>
+        <p>The AI question generator needs a Google Gemini API key. Since you have Gemini Pro, get your key at <strong>aistudio.google.com</strong> → tap "Get API key" → "Create API key". It's free.</p>
+        <div class="setup-tip">💡 Your key is stored only on your device. With Gemini Pro you get high rate limits and fast generation.</div>
+        <div class="input-group">
+          <label>GEMINI API KEY</label>
+          <input type="password" class="input-field" id="apiKeyInput" placeholder="AIzaSy..."/>
+        </div>
+        <button class="action-btn primary" onclick="saveApiKey()" style="margin-top:4px">Save Key &amp; Start Learning</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ TOPIC VIEW ═══════════ -->
+  <div class="view" id="topicView">
+    <button class="back-btn" onclick="showView('homeView')">
+      <svg viewBox="0 0 24 24" width="18" height="18"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      Back
+    </button>
+    <div id="topicHeader" style="margin-bottom:16px"></div>
+    <div class="gen-controls">
+      <div class="ctrl-row">
+        <span class="ctrl-label">Difficulty</span>
+        <div class="chip-row" id="diffChips">
+          <div class="chip active" data-diff="easy" onclick="toggleChip(this,'diffChips')">Easy</div>
+          <div class="chip amber active" data-diff="medium" onclick="toggleChip(this,'diffChips')">Medium</div>
+          <div class="chip rose active" data-diff="hard" onclick="toggleChip(this,'diffChips')">Hard</div>
+        </div>
+      </div>
+      <div class="ctrl-row">
+        <span class="ctrl-label">Count</span>
+        <select class="select-pill" id="qCountSelect">
+          <option value="5">5 questions</option>
+          <option value="10" selected>10 questions</option>
+          <option value="20">20 questions</option>
+          <option value="30">30 questions</option>
+          <option value="50">50 questions</option>
+        </select>
+      </div>
+      <div class="ctrl-row">
+        <span class="ctrl-label">Focus</span>
+        <select class="select-pill" id="focusSelect">
+          <option value="all">All cognitive levels</option>
+          <option value="remember">Remember (recall)</option>
+          <option value="apply">Apply (clinical)</option>
+          <option value="analyze">Analyze (complex)</option>
+        </select>
+      </div>
+    </div>
+    <div class="section-title">Topics</div>
+    <div class="topic-list" id="topicList"></div>
+  </div>
+
+  <!-- ═══════════ QUIZ VIEW ═══════════ -->
+  <div class="view" id="quizView">
+    <button class="back-btn" id="quizBackBtn">
+      <svg viewBox="0 0 24 24" width="18" height="18"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      <span id="quizBackLabel">Exit Quiz</span>
+    </button>
+
+    <!-- Generating Screen -->
+    <div class="generating-screen" id="genScreen">
+      <div class="ai-spinner"></div>
+      <p style="font-family:var(--font2);font-size:1.1rem">Generating Questions</p>
+      <p style="font-size:.8rem;color:var(--text2);max-width:260px">Claude AI is reading your MilesDown notes and writing custom exam-quality questions...</p>
+      <div class="gen-steps">
+        <div class="gen-step active" id="gs1"><div class="gen-step-dot"></div>Loading source material</div>
+        <div class="gen-step" id="gs2"><div class="gen-step-dot"></div>Analyzing topic content</div>
+        <div class="gen-step" id="gs3"><div class="gen-step-dot"></div>Writing questions &amp; distractors</div>
+        <div class="gen-step" id="gs4"><div class="gen-step-dot"></div>Calibrating difficulty</div>
+        <div class="gen-step" id="gs5"><div class="gen-step-dot"></div>Adding worked solutions</div>
+      </div>
+    </div>
+
+    <!-- Active Question -->
+    <div id="activeQuiz" style="display:none">
+      <div class="quiz-header">
+        <button class="back-btn" style="padding:0" onclick="confirmExitQuiz()">
+          <svg viewBox="0 0 24 24" width="18" height="18"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <div class="progress-wrap">
+          <div class="progress-track"><div class="progress-fill" id="qProgress"></div></div>
+        </div>
+        <div class="q-counter" id="qCounter">1 / 10</div>
+      </div>
+
+      <div class="q-meta" id="qMeta"></div>
+
+      <div class="q-card">
+        <div class="q-stem" id="qStem"></div>
+        <div class="hint-row">
+          <button class="hint-btn" id="hint1Btn" onclick="showHint(1)">💡 Hint 1</button>
+          <button class="hint-btn" id="hint2Btn" onclick="showHint(2)" style="display:none">💡 Hint 2</button>
+          <span style="font-size:.72rem;color:var(--text3)" id="hintPenalty"></span>
+        </div>
+        <div class="hint-box" id="hintBox"></div>
+      </div>
+
+      <div class="options-list" id="optionsList"></div>
+
+      <div class="feedback-panel" id="feedbackPanel">
+        <div class="feedback-result" id="feedbackResult"></div>
+        <div id="distractorNote" class="distractor-note" style="display:none"></div>
+        <div class="explanation" id="explanationText"></div>
+        <div class="rate-row">
+          <span class="rate-label">How was this?</span>
+          <button class="rate-btn" onclick="rateDifficulty(3)" id="rateEasy">Easy</button>
+          <button class="rate-btn" onclick="rateDifficulty(4)" id="rateOk">OK</button>
+          <button class="rate-btn" onclick="rateDifficulty(2)" id="rateHard">Hard</button>
+          <button class="rate-btn" onclick="rateDifficulty(1)" id="rateAgain">Again</button>
+        </div>
+      </div>
+
+      <button class="action-btn primary" id="nextBtn" onclick="nextQuestion()" style="display:none">Next Question →</button>
+    </div>
+
+    <!-- Results Screen -->
+    <div class="result-screen" id="resultScreen">
+      <div class="result-ring" id="resultRing">
+        <div class="result-pct" id="resultPct"></div>
+        <div class="result-label">Correct</div>
+      </div>
+      <h2 style="margin-bottom:6px" id="resultTitle"></h2>
+      <p style="color:var(--text2);font-size:.85rem;margin-bottom:16px" id="resultSubtitle"></p>
+      <div class="result-breakdown" id="resultBreakdown"></div>
+      <div id="wrongReviewSection" style="display:none">
+        <div class="section-title">Review Incorrect Answers</div>
+        <div class="wrong-list" id="wrongList"></div>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:20px">
+        <button class="action-btn secondary" style="flex:1" onclick="retryQuiz()">🔄 Retry</button>
+        <button class="action-btn primary" style="flex:1" onclick="newQuiz()">⚡ New Quiz</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ DASHBOARD VIEW ═══════════ -->
+  <div class="view" id="dashView">
+    <div class="section-title" style="margin-top:16px">📊 Your Progress</div>
+    <div class="dash-grid">
+      <div class="dash-card">
+        <div class="dash-num teal" id="d-total">0</div>
+        <div class="dash-label">Total Questions</div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-num amber" id="d-streak">0</div>
+        <div class="dash-label">Day Streak 🔥</div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-num green" id="d-acc">—</div>
+        <div class="dash-label">Accuracy Rate</div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-num rose" id="d-due">0</div>
+        <div class="dash-label">Due for Review</div>
+      </div>
+    </div>
+
+    <div class="dash-card full">
+      <div style="font-size:.8rem;font-weight:600;margin-bottom:6px">Activity (last 28 days)</div>
+      <div class="heatmap" id="heatmap"></div>
+    </div>
+
+    <div class="dash-card full" style="margin-top:10px">
+      <div style="font-size:.8rem;font-weight:600;margin-bottom:10px">Subject Mastery</div>
+      <div class="subject-bars" id="subjBars"></div>
+    </div>
+
+    <div class="dash-card full" style="margin-top:10px">
+      <div style="font-size:.8rem;font-weight:600;margin-bottom:6px">Recent Sessions</div>
+      <div class="recent-list" id="recentList"></div>
+    </div>
+
+    <button class="action-btn secondary" style="margin-top:14px" onclick="resetData()">⚠️ Reset All Progress</button>
+  </div>
+
+  <!-- ═══════════ REFERENCE VIEW ═══════════ -->
+  <div class="view" id="refView">
+    <div style="padding-top:16px"></div>
+    <input class="ref-search" placeholder="🔍  Search topics, concepts..." id="refSearch" oninput="filterRef(this.value)"/>
+    <div class="ref-cards" id="refCards"></div>
+  </div>
+
+</div><!-- /app -->
+
+<!-- BOTTOM NAV -->
+<nav class="nav">
+  <button class="nav-btn active" id="nav-home" onclick="showView('homeView');setNav('home')">
+    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    Home
+  </button>
+  <button class="nav-btn" id="nav-quiz" onclick="showView('topicView');setNav('quiz');populateTopicView(null)">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    Practice
+  </button>
+  <button class="nav-btn" id="nav-dash" onclick="showView('dashView');setNav('dash');refreshDash()">
+    <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+    Progress
+  </button>
+  <button class="nav-btn" id="nav-ref" onclick="showView('refView');setNav('ref');buildRefCards()">
+    <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+    Notes
+  </button>
+</nav>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+//  MCAT MASTERY — Complete Application Logic
+// ═══════════════════════════════════════════════════════════
+
+// ─── CURRICULUM MAP (all 92 pages of MilesDown) ───
+const CURRICULUM = [
+  {
+    id:'gc', name:'General Chemistry', icon:'⚗️', color:'#00d4c8', pages:'4-15',
+    topics:[
+      {id:'gc1',name:'Atomic Structure',page:4,subtopics:['Quantum numbers','Electron config','Hund\'s rule','Pauli exclusion','Diamagnetic/Paramagnetic']},
+      {id:'gc2',name:'The Periodic Table',page:5,subtopics:['Periodic trends','Electronegativity','Ionization energy','Atomic radius','Electron affinity']},
+      {id:'gc3',name:'Bonding & Interactions',page:6,subtopics:['VSEPR','Hybridization','Intermolecular forces','Formal charge','Bond polarity']},
+      {id:'gc4',name:'Compounds & Stoichiometry',page:7,subtopics:['Types of reactions','Naming ions','Molar mass','Limiting reagent','Normality']},
+      {id:'gc5',name:'Chemical Kinetics',page:8,subtopics:['Rate laws','Arrhenius equation','Reaction mechanisms','Half-life','Reaction order']},
+      {id:'gc6',name:'Equilibrium',page:9,subtopics:['Keq & Qc','Le Chatelier\'s principle','Gibbs free energy','Kinetic vs thermodynamic control']},
+      {id:'gc7',name:'Thermochemistry',page:10,subtopics:['Enthalpy','Entropy','Gibbs free energy','Hess\'s law','Phase changes','State functions']},
+      {id:'gc8',name:'The Gas Phase',page:11,subtopics:['Ideal gas law','Gas laws','KMT','Real gases','Graham\'s law','Dalton\'s law']},
+      {id:'gc9',name:'Solutions',page:12,subtopics:['Solubility','Colligative properties','Concentration units','Ksp','Common ion effect']},
+      {id:'gc10',name:'Acids & Bases',page:13,subtopics:['Definitions','pH/pOH','Buffers','Henderson-Hasselbalch','Titrations','Strong vs weak']},
+      {id:'gc11',name:'Oxidation-Reduction',page:14,subtopics:['Oxidation states','Balancing redox','Half-reactions','OIL RIG']},
+      {id:'gc12',name:'Electrochemistry',page:15,subtopics:['Galvanic cells','Electrolytic cells','Cell potential','Nernst equation','Faraday\'s law']},
+    ]
+  },
+  {
+    id:'oc', name:'Organic Chemistry', icon:'🧪', color:'#f5a623', pages:'16-27',
+    topics:[
+      {id:'oc1',name:'Nomenclature',page:16,subtopics:['IUPAC naming','Functional groups','Common names','Substituents']},
+      {id:'oc2',name:'Stereoisomers',page:17,subtopics:['Enantiomers','Diastereomers','Meso compounds','R/S','E/Z','Optical activity']},
+      {id:'oc3',name:'Bonding',page:18,subtopics:['Hybridization','Sigma/pi bonds','Resonance','Aromaticity','Hückel\'s rule']},
+      {id:'oc4',name:'Organic Reactions',page:19,subtopics:['SN1 vs SN2','E1 vs E2','Addition reactions','Free radical','Markovnikov']},
+      {id:'oc5',name:'Alcohols',page:20,subtopics:['Oxidation levels','Reactions of alcohols','Ethers','Phenols','Protecting groups']},
+      {id:'oc6',name:'Aldehydes & Ketones I',page:21,subtopics:['Nucleophilic addition','Grignard','Reduction','Oxidation','Acetal formation']},
+      {id:'oc7',name:'Aldehydes & Ketones II',page:22,subtopics:['Enols','Enolates','Aldol condensation','Keto-enol tautomerism']},
+      {id:'oc8',name:'Carboxylic Acids',page:23,subtopics:['Acidity','Reactions','Nucleophilic acyl substitution','Derivatives']},
+      {id:'oc9',name:'Carboxylic Acid Derivatives',page:24,subtopics:['Esters','Amides','Anhydrides','Acyl chlorides','Reactivity order']},
+      {id:'oc10',name:'N & P-Containing Compounds',page:25,subtopics:['Amines','Basicity','Phosphates','ATP','Nitrogen reactions']},
+      {id:'oc11',name:'Spectroscopy',page:26,subtopics:['IR spectroscopy','NMR','Mass spectrometry','UV-Vis','Interpreting spectra']},
+      {id:'oc12',name:'Separations & Purifications',page:27,subtopics:['TLC','Column chromatography','Recrystallization','Distillation','Extraction']},
+    ]
+  },
+  {
+    id:'bio', name:'Biology', icon:'🧬', color:'#4ade80', pages:'28-39',
+    topics:[
+      {id:'bio1',name:'The Cell',page:28,subtopics:['Organelles','Prokaryote vs eukaryote','Cytoskeleton','Vesicular transport','Cell cycle']},
+      {id:'bio2',name:'Reproduction',page:29,subtopics:['Mitosis','Meiosis','Crossing over','Spermatogenesis','Oogenesis']},
+      {id:'bio3',name:'Embryogenesis',page:30,subtopics:['Germ layers','Neurulation','Developmental milestones','Gastrulation','Organogenesis']},
+      {id:'bio4',name:'Nervous System',page:31,subtopics:['Action potential','Synapse','Neurotransmitters','CNS/PNS','Glial cells','Myelin']},
+      {id:'bio5',name:'Endocrine System',page:32,subtopics:['Hormone mechanisms','GPCR','Steroid vs peptide','Feedback loops','Major hormones']},
+      {id:'bio6',name:'Respiratory System',page:33,subtopics:['Air pathway','Gas exchange','Breathing mechanics','Bohr effect','Surfactant']},
+      {id:'bio7',name:'Cardiovascular System',page:34,subtopics:['Heart chambers','Cardiac cycle','Blood vessels','Starling forces','ECG']},
+      {id:'bio8',name:'Immune System',page:35,subtopics:['Innate immunity','Adaptive immunity','B cells','T cells','MHC','Antibodies','Complement']},
+      {id:'bio9',name:'Digestive System',page:36,subtopics:['Digestive pathway','Stomach cells','Enzymes','Absorption','Hormones']},
+      {id:'bio10',name:'Kidney & Skin',page:37,subtopics:['Nephron','Filtration/reabsorption','RAAS','ADH/aldosterone','Skin layers']},
+      {id:'bio11',name:'Muscular System',page:38,subtopics:['Sliding filament','Sarcomere bands','Muscle fiber types','NMJ','Cardiac muscle']},
+      {id:'bio12',name:'Genetics & Evolution',page:39,subtopics:['Mendelian genetics','Hardy-Weinberg','Epistasis','Evolution','Natural selection']},
+    ]
+  },
+  {
+    id:'bc', name:'Biochemistry', icon:'🔬', color:'#c084fc', pages:'40-51',
+    topics:[
+      {id:'bc1',name:'Amino Acids & Proteins',page:40,subtopics:['20 amino acids','pI/pKa','Protein structure','Peptide bonds','Denaturation']},
+      {id:'bc2',name:'Enzymes',page:41,subtopics:['Kinetics','Km/Vmax','Inhibition types','Lineweaver-Burk','Allosteric regulation']},
+      {id:'bc3',name:'Nonenzymatic Protein Function',page:42,subtopics:['Motor proteins','Structural proteins','Protein analysis','Gel electrophoresis','Western blot']},
+      {id:'bc4',name:'Carbohydrate Structure',page:43,subtopics:['Monosaccharides','Disaccharides','Polysaccharides','Anomers','Glycosidic bonds']},
+      {id:'bc5',name:'Lipid Structure',page:44,subtopics:['Fatty acids','Phospholipids','Steroids','Cholesterol','Membrane fluidity']},
+      {id:'bc6',name:'DNA & Biotechnology',page:45,subtopics:['DNA structure','Replication','Repair mechanisms','PCR','Cloning','CRISPR','Mutations']},
+      {id:'bc7',name:'RNA & Genetic Code',page:46,subtopics:['Types of RNA','Transcription','Translation','Codon table','Mutations','Gene regulation']},
+      {id:'bc8',name:'Biological Membranes',page:47,subtopics:['Fluid mosaic model','Transport types','Membrane potential','Signal transduction']},
+      {id:'bc9',name:'Carbohydrate Metabolism I',page:48,subtopics:['Glycolysis','Glycogenesis','Glycogenolysis','Gluconeogenesis','Pentose phosphate']},
+      {id:'bc10',name:'Carbohydrate Metabolism II',page:49,subtopics:['Pyruvate dehydrogenase','TCA cycle','ATP yield','Regulation']},
+      {id:'bc11',name:'Lipid & AA Metabolism',page:50,subtopics:['Beta oxidation','Fatty acid synthesis','Ketone bodies','Amino acid catabolism','Urea cycle']},
+      {id:'bc12',name:'Bioenergetics & Metabolism',page:51,subtopics:['Oxidative phosphorylation','ETC','ATP synthase','Uncoupling','Metabolic regulation']},
+    ]
+  },
+  {
+    id:'bs', name:'Behavioral Sciences', icon:'🧠', color:'#ff6b8a', pages:'52-63',
+    topics:[
+      {id:'bs1',name:'Biology & Behavior',page:52,subtopics:['Neurotransmitters','Brain regions','Nervous system','Development','Infant reflexes']},
+      {id:'bs2',name:'Sensation & Perception',page:53,subtopics:['Sensory thresholds','Weber\'s law','Signal detection','Vision','Hearing','Perception']},
+      {id:'bs3',name:'Learning & Memory',page:54,subtopics:['Classical conditioning','Operant conditioning','Memory types','Reinforcement schedules']},
+      {id:'bs4',name:'Cognition & Language',page:55,subtopics:['Problem solving','Heuristics','Cognitive biases','Language development','Consciousness']},
+      {id:'bs5',name:'Motivation, Emotion & Stress',page:56,subtopics:['Maslow\'s hierarchy','Theories of motivation','Stress response','Emotion theories','HPA axis']},
+      {id:'bs6',name:'Identity & Personality',page:57,subtopics:['Freudian theory','Defense mechanisms','Big Five','Social learning','Self-concept']},
+      {id:'bs7',name:'Psychological Disorders',page:58,subtopics:['Schizophrenia','Mood disorders','Anxiety disorders','Trauma','Personality disorders']},
+      {id:'bs8',name:'Social Processes & Behavior',page:59,subtopics:['Social facilitation','Conformity','Obedience','Groupthink','Bystander effect']},
+      {id:'bs9',name:'Social Interaction',page:60,subtopics:['Status/roles','Attribution theory','Attitudes','Prejudice','Prosocial behavior']},
+      {id:'bs10',name:'Social Thinking',page:61,subtopics:['Attribution','Cognitive dissonance','Social influence','Attachment','Aggression']},
+      {id:'bs11',name:'Social Structure',page:62,subtopics:['Social institutions','Sociological theories','Demographics','Culture','Norms']},
+      {id:'bs12',name:'Social Stratification',page:63,subtopics:['Social mobility','Inequality','Health disparities','Epidemiology','Healthcare systems']},
+    ]
+  },
+  {
+    id:'ph', name:'Physics & Math', icon:'📐', color:'#60a5fa', pages:'64-75',
+    topics:[
+      {id:'ph1',name:'Kinematics & Dynamics',page:64,subtopics:['Newton\'s laws','Projectile motion','Circular motion','Torque','Friction']},
+      {id:'ph2',name:'Work & Energy',page:65,subtopics:['Conservation of energy','Work-energy theorem','Springs','Power','Potential energy']},
+      {id:'ph3',name:'Thermodynamics',page:66,subtopics:['Laws of thermodynamics','Heat transfer','Specific heat','Thermal expansion','Entropy']},
+      {id:'ph4',name:'Fluids',page:67,subtopics:['Pressure','Buoyancy','Continuity','Bernoulli','Viscosity','Poiseuille']},
+      {id:'ph5',name:'Electrostatics & Magnetism',page:68,subtopics:['Coulomb\'s law','Electric fields','Capacitors','Magnetic fields','Lorentz force']},
+      {id:'ph6',name:'Circuits',page:69,subtopics:['Ohm\'s law','Series/parallel','Kirchhoff\'s laws','RC circuits','Power dissipation']},
+      {id:'ph7',name:'Waves & Sound',page:70,subtopics:['Wave properties','Doppler effect','Standing waves','Sound intensity','Resonance']},
+      {id:'ph8',name:'Light & Optics',page:71,subtopics:['Lenses','Mirrors','Refraction','Snell\'s law','Diffraction','Thin lens equation']},
+      {id:'ph9',name:'Atomic & Nuclear',page:72,subtopics:['Photoelectric effect','Radioactive decay','Nuclear reactions','Bohr model','Energy levels']},
+      {id:'ph10',name:'Mathematics',page:73,subtopics:['Scientific notation','Logarithms','Vectors','Trigonometry','Estimation']},
+      {id:'ph11',name:'Research Design',page:74,subtopics:['Study types','Variables','Controls','Bias','Statistical significance']},
+      {id:'ph12',name:'Statistical Reasoning',page:75,subtopics:['Central tendency','Standard deviation','Correlation','Hypothesis testing','p-value']},
+    ]
+  }
+];
+
+// ─── EMBEDDED PAGE CONTENT (for AI context) ───
+const PAGE_CONTENT = {
+  "4":"General Chemistry 1: Atomic Structure\nRutherford Model: 1911. Electrons surround a nucleus.\nBohr Model: 1913. Described orbits in more detail. Farther orbits = higher energy.\nPhoton emitted when n decreases, absorbed when n increases.\nHeisenberg Uncertainty: It is impossible to know the momentum and position simultaneously.\nHund's Rule: e- only double up in orbitals if all orbitals first have 1 e-.\nPauli Exclusion Principle: Paired e- must be +1/2, -1/2.\nA = Mass number = protons + neutrons. Z = Atomic number = # of protons.\nQuantum Numbers: n (principal, energy level), l (azimuthal, shape: 0=s,1=p,2=d,3=f), ml (magnetic, orientation), ms (spin, +1/2 or -1/2).\nMaximum e- in terms of n = 2n^2. Maximum e- in subshell = 4l + 2.\nDiamagnetic: all electrons paired, repelled by magnetic field. Paramagnetic: 1+ unpaired electrons, attracted to magnetic field.\nAufbau Principle: fill lowest energy orbitals first.\nAvogadro's Number: 6.022 × 10^23 = 1 mol. Planck's h: 6.626 × 10^-34 J·s. Speed of Light c: 3.0 × 10^8 m/s.\nLight Energy: E = hν. c = λν.",
+  "5":"General Chemistry 2: The Periodic Table\nPeriodic Trends (left to right, bottom to top): Electronegativity increases. Ionization energy increases. Atomic size decreases. Electron affinity generally increases.\nCommon Electronegativities: H=2.20, C=2.55, N=3.04, O=3.44, F=3.98\nCations < Neutral < Anions in size.\nGroups: Alkali Metals (IA), Alkaline Earth (IIA), Transition Metals, Halogens (VIIA), Noble Gases (VIII).\nZeff (effective nuclear charge): Increases left to right. Unchanged by shielding from same shell.\nIonization Energy: Energy required to remove an electron. 1st IE < 2nd IE.\nElectron Affinity: Energy released when gaining an electron. Noble gases have no EA.\nElectronegativity: Force atom exerts on electrons in a bond. F=4.0 is highest.",
+  "6":"General Chemistry 3: Bonding\nVSEPR Theory: Electron pairs repel each other.\nHybridization table: sp=2 groups/linear/180°, sp2=3 groups/trigonal planar/120°, sp3=4 groups/tetrahedral/109.5°, sp3d=5 groups/trig bipyramidal/90°&120°, sp3d2=6 groups/octahedral/90°.\nLone pairs reduce bond angles.\nCovalent Bond: Sharing electrons. DEN < 1.7.\nIonic Bond: Transfer of electrons. DEN > 1.7.\nNonpolar Covalent: DEN < 0.5. Polar Covalent: DEN 0.5-1.7.\nIntermolecular Forces (strongest to weakest): Hydrogen bond (N-H, O-H, F-H) > Dipole-dipole > London dispersion.\nFormal Charge = valence e- − nonbonding e- − (bonding e-/2).\nSigma bonds: 1 per single bond. Pi bonds: 1 per double bond extra, 2 per triple bond extra.\nCoordinate covalent bond: one atom provides both electrons.",
+  "7":"General Chemistry 4: Compounds and Stoichiometry\nTypes of Reactions: Combination, Decomposition, Combustion, Single-displacement, Double-displacement (metathesis), Neutralization (acid+base→salt+H2O).\nNaming: Metals with multiple oxidation states use Roman numerals: Fe2+=Iron(II), Fe3+=Iron(III).\nOxyanions: -ate=more oxygen, -ite=less oxygen. NO3-=Nitrate, NO2-=Nitrite.\nCompound Formulas: Empirical (simplest ratio), Molecular (actual ratio).\nMolarity = moles solute/liters solution. Normality = # equivalents/liters. Molality = moles solute/kg solvent.",
+  "8":"General Chemistry 5: Chemical Kinetics\nRate Law: rate = k[A]^m[B]^n.\nOrder: 0th order: [A]=[A]0−kt, t1/2=[A]0/2k. 1st order: [A]=[A]0e^(-kt), t1/2=ln2/k (CONSTANT, independent of [A]). 2nd order: 1/[A]=1/[A]0+kt, t1/2=1/(k[A]0).\nArrhenius: k = A × e^(-Ea/RT). Increasing T or decreasing Ea increases k.\nReaction Mechanisms: Slowest step is rate-determining step. Intermediate: product of one step, reactant of another.\nGibbs Free Energy: ΔG = Ea_forward − Ea_reverse. Negative ΔG = spontaneous.\nRadioactive Decay: [A]t = [A]0 × e^(-λt). First-order kinetics.",
+  "9":"General Chemistry 6: Equilibrium\nKeq = [C]^c[D]^d / [A]^a[B]^b (exclude pure solids and liquids).\nQ < Keq: reaction proceeds forward. Q = Keq: equilibrium. Q > Keq: reaction proceeds reverse.\nLe Chatelier's Principle: System shifts to relieve stress. Adding reactant→forward. Removing product→forward. Increasing pressure→fewer moles of gas side. Increasing T→endothermic direction.\nBicarbonate buffer: CO2+H2O⇌H2CO3⇌H++HCO3-.\nKinetic products: higher free energy, form faster. Thermodynamic products: lower free energy, more stable, form at higher T.",
+  "10":"General Chemistry 7: Thermochemistry\nSystems: Isolated (no exchange), Closed (energy only), Open (energy and matter).\nProcesses: Isothermal (constant T), Adiabatic (no heat exchange), Isobaric (constant P), Isochoric (constant V).\nState Functions: Path independent. Include P, V, T, H, G, S, U.\nSTP: 273K (0°C), 1 atm.\nEnthalpy ΔH: Heat at constant pressure. Exothermic: ΔH<0. Endothermic: ΔH>0.\nHess's Law: ΔH_rxn = ΣΔH_products − ΣΔH_reactants.\nEntropy ΔS = q_rev/T. ΔS_rxn° = ΣS°_products − ΣS°_reactants.\nGibbs: ΔG = ΔH − TΔS. ΔG<0: spontaneous. ΔG=0: equilibrium. ΔG>0: nonspontaneous.\nΔG° = -RT ln(Keq). ΔG = ΔG° + RT ln(Q).",
+  "11":"General Chemistry 8: The Gas Phase\nIdeal Gas: PV = nRT. R = 8.314 J/mol·K = 0.0821 L·atm/mol·K.\nSTP: 273K, 1 atm. 1 mol ideal gas at STP = 22.4 L.\nUnits: 1 atm = 760 mmHg = 760 torr = 101.3 kPa.\nBoyle's: P1V1=P2V2 (constant n,T). Charles's: V1/T1=V2/T2 (constant n,P). Gay-Lussac's: P1/T1=P2/T2 (constant n,V). Avogadro's: V/n=k (constant T,P).\nDalton's Law: Ptotal = ΣPi. PA = XA × Ptotal.\nKinetic Molecular Theory: KE_avg = (3/2)RT. urms = √(3RT/M).\nGraham's Law: rate1/rate2 = √(M2/M1). Lower molar mass = faster diffusion.\nReal Gases deviate at low T, high P. Van der Waals: (P + a/V²)(V−b)=nRT.\nDiatomic gases: H2, N2, O2, F2, Cl2, Br2, I2.",
+  "12":"General Chemistry 9: Solutions\nKsp = solubility product. IP < Ksp: unsaturated. IP = Ksp: saturated. IP > Ksp: precipitate.\nCommon ion effect: decreases solubility. Chelation: central cation bonded to same ligand multiple times.\nConcentration: % mass, mole fraction, Molarity (M), Molality (m), Normality (N).\nDilution: M1V1 = M2V2.\nColligative Properties (depend on # particles, not identity): Vapor pressure depression (Raoult's law: PA=XA×P°A). Boiling point elevation: ΔTb = iKbm. Freezing point depression: ΔTf = iKfm. Osmotic pressure: π = iMRT.\nSolubility Rules: Always soluble: Na+, K+, NH4+, NO3-. Cl-/Br-/I- soluble except Ag+, Pb2+, Hg2 2+. SO42- soluble except Ca2+, Sr2+, Ba2+, Pb2+.",
+  "13":"General Chemistry 10: Acids and Bases\nDefinitions: Arrhenius (H+/OH- producers). Bronsted-Lowry (H+ donor/acceptor). Lewis (e- pair acceptor/donor).\nKw = [H+][OH-] = 10^-14 at 298K. pH = -log[H+]. pOH = -log[OH-]. pH+pOH = 14.\nStrong acids: HCl, HBr, HI, HNO3, H2SO4, HClO4. Strong bases: Group IA/IIA hydroxides.\nKa = [H+][A-]/[HA]. pKa = -log(Ka). pKa + pKb = 14.\nHenderson-Hasselbalch: pH = pKa + log([A-]/[HA]).\nAt half-equivalence point: pH = pKa, [HA]=[A-], maximum buffering.\nTitrations: Strong acid + strong base: equivalence pH=7. Weak acid + strong base: pH>7. Weak base + strong acid: pH<7.\nPolyvalent acids have multiple buffering regions.",
+  "14":"General Chemistry 11: Oxidation-Reduction\nOIL RIG: Oxidation Is Loss (electrons), Reduction Is Gain.\nOxidizing agent: gets reduced. Reducing agent: gets oxidized.\nRules for assigning oxidation states: Free element=0. Monatomic ion=charge. H usually +1 (except metal hydrides=-1). O usually -2 (except peroxides=-1).\nBalancing redox: Half-reaction method. Acidic conditions: add H2O/H+. Basic conditions: add H2O/OH-.",
+  "15":"General Chemistry 12: Electrochemistry\nGalvanic (voltaic) cell: spontaneous. ΔG<0, E°cell>0. Anode=oxidation=negative. Cathode=reduction=positive. AN OX / RED CAT.\nElectrolytic cell: non-spontaneous, requires external energy. Anode=positive, Cathode=negative.\nE°cell = E°cathode − E°anode.\nΔG° = -nFE°. F = 96485 C/mol.\nNernst equation: E = E° − (RT/nF)ln(Q). At equilibrium: E=0, Q=Keq.\nElectrolysis: m = (M × I × t)/(n × F).",
+  "16":"Organic Chemistry 1: Nomenclature\nIUPAC: Number chain from end closest to functional group. Priority order: acid>aldehyde>ketone>alcohol>alkene>alkyne>amine.\nCommon prefixes: meth-(1), eth-(2), prop-(3), but-(4), pent-(5), hex-(6).\nFunctional groups: -OH (alcohol), C=O (carbonyl), -COOH (carboxylic acid), -CHO (aldehyde), -CO- (ketone), -NH2 (amine), -X (halide).",
+  "17":"Organic Chemistry 2: Stereoisomers\nConstitutional isomers: same formula, different connectivity.\nConformational isomers: different rotation around bonds.\nStereoisomers: same connectivity, different spatial arrangement.\nEnantiomers: non-superimposable mirror images. Opposite optical rotation. Same physical properties except optical rotation.\nDiastereomers: stereoisomers that are NOT mirror images. Different physical properties.\nMeso compound: has stereocenters but is achiral due to internal plane of symmetry.\nR/S (CIP rules): priority by atomic number. R=clockwise, S=counterclockwise (with lowest priority pointing away).\nE/Z: E=opposite sides (higher priority groups), Z=same side.\nFischer projections: horizontal bonds come out of page.",
+  "18":"Organic Chemistry 3: Bonding\nsp3: tetrahedral, 109.5°, all single bonds. sp2: trigonal planar, 120°, double bonds. sp: linear, 180°, triple bonds.\nSingle bond = 1 sigma. Double bond = 1 sigma + 1 pi. Triple bond = 1 sigma + 2 pi.\nResonance: delocalized electrons → stabilization. More resonance structures = more stable.\nAromaticity (Hückel's rule): cyclic, planar, conjugated, 4n+2 pi electrons (n=0,1,2...).\nInductive effects: electron withdrawing (halogens, C=O) or donating groups.\nConjugation stabilizes carbocations and radicals.",
+  "19":"Organic Chemistry 4: Analyzing Organic Reactions\nSN1: Unimolecular. Carbocation intermediate. 3° > 2° substrate. Racemization. Polar protic solvent.\nSN2: Bimolecular. No intermediate. 1° > 2° substrate. Inversion (Walden). Strong nucleophile. Polar aprotic solvent.\nE1: Unimolecular elimination. Carbocation intermediate. Higher temp favors elimination over SN1.\nE2: Bimolecular elimination. Anti-periplanar arrangement needed. Strong bulky base.\nMarkovnikov's rule: electrophile adds to carbon with more H's (more substituted carbocation formed).\nAnti-Markovnikov (radical addition with peroxides): opposite regioselectivity.\nElectrophiles: accept electrons (Lewis acids). Nucleophiles: donate electrons (Lewis bases).",
+  "20":"Organic Chemistry 5: Alcohols\nAlcohol oxidation: 1° alcohol →(PCC/Swern)→ aldehyde →(KMnO4/K2Cr2O7)→ carboxylic acid. 2° alcohol → ketone. 3° alcohol: cannot be oxidized.\nAlcohol reactions: dehydration (E2 mechanism, with H2SO4), esterification, Williamson synthesis (for ethers).\nAcidity: pKa ~16-18. More substituted = slightly less acidic.\nGrignard reagents react with aldehydes/ketones to give alcohols after workup.",
+  "21":"Organic Chemistry 6: Aldehydes & Ketones I\nCarbonyl carbon is electrophilic (partial positive charge from resonance C+=O-).\nNucleophilic addition: Nu attacks C=O. Aldehydes more reactive than ketones.\nReductions: NaBH4 (mild, gives alcohol from C=O). LiAlH4 (strong, reduces everything).\nGrignard: R-MgBr + C=O → alcohol after H3O+ workup. With HCHO→1°, with aldehyde→2°, with ketone→3° alcohol.\nAcetal formation: C=O + 2 ROH → acetal + H2O (acid-catalyzed, reversible, protects carbonyl).\nOxidation: Tollens test (Ag+ + aldehyde → Ag mirror). Benedict's test (Cu2+ → brick red precipitate with reducing sugars).",
+  "22":"Organic Chemistry 7: Aldehydes & Ketones II\nKeto-enol tautomerism: keto form (more stable) ⇌ enol form.\nEnolate: deprotonated alpha carbon. Strong base (LDA or NaH at low temp) = kinetic enolate. Weak base/high temp = thermodynamic enolate.\nAldol condensation: enolate attacks C=O of another carbonyl → β-hydroxy carbonyl → dehydration → α,β-unsaturated carbonyl.\nClaisen condensation: two esters → β-keto ester (requires ester with alpha proton).",
+  "23":"Organic Chemistry 8: Carboxylic Acids\nCarboxylic acid pKa ~4-5. Stronger than alcohols (pKa~16-18) due to resonance stabilization of carboxylate (RCOO-).\nElectron-withdrawing groups (EWG) on alpha carbon increase acidity.\nFischer esterification: RCOOH + R'OH ⇌ RCOOR' + H2O (acid-catalyzed, reversible).\nReactions: reduction with LiAlH4 → primary alcohol. Decarboxylation: loss of CO2 (beta-keto acids).",
+  "24":"Organic Chemistry 9: Carboxylic Acid Derivatives\nReactivity order (most→least reactive): Acyl chloride > Anhydride > Ester ≈ Thioester > Amide.\nNucleophilic acyl substitution: nucleophile attacks carbonyl, tetrahedral intermediate, leaving group leaves.\nSaponification: ester + NaOH → carboxylate salt + alcohol (irreversible).\nAmide hydrolysis requires strong acid or base + heat.",
+  "25":"Organic Chemistry 10: N and P-Containing Compounds\nAmines: nucleophilic and basic. Basicity: 3° > 2° > 1° > NH3 > Ar-NH2 (in water). In gas phase: 3° > 2° > 1°.\nAmines react with carboxylic acids → amide bonds. Reaction with nitrous acid: 1° aliphatic → diazonium → alkene; aromatic 1° → stable diazonium for Sandmeyer reactions.\nPhosphate groups: important in ATP (energy storage), DNA/RNA backbone, lipid membranes.\nATP hydrolysis releases ~30 kJ/mol.",
+  "26":"Organic Chemistry 11: Spectroscopy\nIR Spectroscopy: O-H (broad, 2500-3600 cm-1 carboxylic, 3200-3550 alcohol). N-H (~3300 cm-1). C-H (~2800-3000). C≡N (~2200). C=O (1700-1750 cm-1, varies by derivative). C=C (~1620-1680).\nNMR: 1H NMR chemical shifts (ppm): TMS=0, alkyl~0-2, allyl/alkynyl~2-3, ArH~6-8, aldehyde~9-10, COOH~10-12. n+1 rule for splitting.\nMass Spec: M+ peak = molecular weight. M+1 for 13C. McLafferty rearrangement. Alpha cleavage.",
+  "27":"Organic Chemistry 12: Separations\nTLC: Polar stationary phase (silica). Rf = distance traveled by compound / distance by solvent. Less polar = higher Rf.\nColumn chromatography: same principle as TLC but preparative.\nRecrystallization: dissolve in hot solvent, cool → crystals form (like compounds precipitate together).\nDistillation: separation by boiling point differences. Fractional distillation for close boiling points.\nExtractionusing separatory funnel: exploits differences in solubility. Acid-base extraction: carboxylic acid (pKa~5) extracted by NaHCO3 (pH~8); amine (pKa~10) extracted by HCl.\nGel filtration: separates by size (MW). Affinity chromatography: specific binding.",
+  "28":"Biology 1: The Cell\nOrganelles: Nucleus (DNA, directs cell), Nucleolus (ribosome production), Mitochondria (ATP via oxphos, own DNA/ribosomes), Rough ER (protein synthesis), Smooth ER (lipid synthesis, detox), Golgi (modify/sort proteins), Lysosomes (digestion, made by Golgi), Peroxisomes (fatty acid oxidation, H2O2 production), Ribosomes (protein synthesis).\nCytoskeleton: Microfilaments (actin, cell shape/movement), Microtubules (tubulin, cell division/transport), Intermediate filaments (keratin, vimentin, structural).\nProkaryotes: No membrane-bound organelles, circular DNA, plasmids, 70S ribosomes, smaller.\nEukaryotes: Membrane-bound organelles, linear DNA, 80S ribosomes.\nVesicular transport: COPII forward (ER→Golgi), COPI retrograde (Golgi→ER).\nCell cycle: G1→S (DNA replication)→G2→M (mitosis). Checkpoints. CDKs/cyclins regulate.\nCentrioles: 9 groups of 3 microtubules. Form mitotic spindle.",
+  "29":"Biology 2: Reproduction\nMitosis: PMAT. Prophase (condense), Metaphase (align), Anaphase (separate chromatids), Telophase (reform nuclei). Cytokinesis. Produces 2 diploid cells.\nMeiosis: 2 divisions. Meiosis I (reductional): homologous pairs separate → 2 haploid cells with duplicated chromosomes. Meiosis II (equational): sister chromatids separate → 4 haploid cells.\nCrossing over: Prophase I. Increases genetic diversity. Occurs between homologous chromosomes.\nNon-disjunction: failure of chromosomes to separate properly. Causes aneuploidy (e.g., trisomy 21).\nSpermatogenesis: 4 sperm per meiosis. Oogenesis: 1 egg + 3 polar bodies per meiosis.",
+  "30":"Biology 3: Embryogenesis\nGerm layers: Ectoderm (skin, nervous system, sense organs), Mesoderm (muscle, bone, blood, kidneys, gonads), Endoderm (GI tract, respiratory, liver, pancreas, thyroid).\nNeurulation: Notochord induces overlying ectoderm → neural plate → neural tube (CNS) + neural crest cells (PNS, melanocytes, adrenal medulla, craniofacial structures).\nGastrulation: Three germ layers form from blastula.\nDevelopmental milestones: Motor skills head-to-toe, core to periphery. Social skills shift parent→peer.\nInfant reflexes: Rooting (turn toward stimulus), Moro (startle), Babinski (toe extension), Grasping.",
+  "31":"Biology 4: Nervous System\nNeuron types: Sensory (afferent), Motor (efferent), Interneurons (CNS).\nAction potential: Resting = -70mV. Depolarization: Na+ rushes in (voltage-gated Na+ channels open). Repolarization: K+ flows out. Hyperpolarization: slight overshoot. Na+/K+ pump: 3Na+ out, 2K+ in.\nMyelin: Schwann cells (PNS), Oligodendrocytes (CNS). Saltatory conduction (at nodes of Ranvier).\nNeurotransmitters: ACh (somatic NS, PNS), Dopamine (movement, reward), Serotonin (mood, sleep), GABA (inhibitory), Glutamate (excitatory), Norepinephrine (sympathetic, alertness), Endorphins (pain).\nGlial cells: Astrocytes (BBB), Microglia (immune in CNS), Ependymal (CSF barrier), Schwann (PNS myelin), Oligodendrocytes (CNS myelin).\nBrain: Hindbrain (cerebellum, medulla, reticular formation), Midbrain (colliculi), Forebrain (thalamus, hypothalamus, basal ganglia, limbic, cortex).\nLobes: Frontal (executive, motor), Parietal (somatosensory), Occipital (vision), Temporal (hearing, memory).",
+  "32":"Biology 5: Endocrine System\nPeptide hormones: made of amino acids, cannot cross membrane, bind cell surface receptors (GPCRs), use second messengers (cAMP, Ca2+, IP3). Fast response. Ex: insulin, glucagon, ADH.\nSteroid hormones: made from cholesterol, lipid-soluble, cross membrane, bind nuclear receptors, alter gene expression directly. Slow response (hours). Ex: cortisol, testosterone, estrogen, aldosterone.\nHypothalamus controls anterior pituitary via portal system. Posterior pituitary releases ADH and oxytocin.\nMajor axes: HPA (stress), HPG (reproduction), HPT (thyroid).\nFeedback: negative feedback maintains homeostasis. Positive feedback (rare): oxytocin during labor.",
+  "33":"Biology 6: Respiratory System\nAir pathway: Nose→Pharynx→Larynx→Trachea→Bronchi→Bronchioles→Alveoli.\nBreathing: Inhalation: active (diaphragm + external intercostals contract → volume↑ → pressure↓ → air in). Exhalation: passive (muscles relax → volume↓ → pressure↑).\nAlveoli: surfactant (reduces surface tension, prevents collapse). Gas exchange by diffusion down partial pressure gradients.\nO2 transport: 98% bound to hemoglobin (4 O2 per Hb). 2% dissolved in plasma.\nCO2 transport: 70% as HCO3- in plasma, 23% bound to Hb, 7% dissolved.\nBohr effect: ↓pH or ↑CO2 → right shift of O2-Hb curve → ↓O2 affinity → releases O2 at tissues.\nVolumes: TV (normal breath ~500mL), IRV (max inhale above TV), ERV (max exhale below TV), RV (always remains). VC = TV+IRV+ERV. TLC = VC+RV.",
+  "34":"Biology 7: Cardiovascular System\nConduction: SA node→AV node→Bundle of His→Purkinje fibers. SA node is pacemaker.\nLeft ventricle: pumps oxygenated blood to systemic circulation via aorta. Right ventricle: pumps deoxygenated blood to lungs via pulmonary artery.\nBlood vessels: Arteries (thick, muscular, elastic). Arterioles (resistance vessels, control BP). Capillaries (1 cell thick, exchange). Venules/Veins (low pressure, valves, blood reservoir).\nBlood pressure: systolic/diastolic. Regulated by SNS, RAAS, ADH.\nStarling forces: Hydrostatic pressure (pushes out), Osmotic/oncotic pressure (pulls in).\nOxygen transport: Hb saturates at alveoli (high O2, low CO2), releases at tissues (low O2, high CO2, low pH).\nBicarbonate buffer: CO2+H2O⇌H2CO3⇌H++HCO3-.",
+  "35":"Biology 8: Immune System\nInnate immunity: Non-specific, immediate. Physical barriers (skin, mucus). Cellular: neutrophils, macrophages, NK cells, mast cells, basophils, eosinophils.\nAdaptive immunity: Specific, slower, has memory. T cells (cell-mediated) and B cells (humoral/antibody).\nMHC I: all nucleated cells, present intracellular antigens to CD8+ cytotoxic T cells. MHC II: APCs (dendritic cells, macrophages, B cells), present extracellular antigens to CD4+ helper T cells.\nAntibodies: 5 classes (IgM, IgG, IgA, IgE, IgD). Made by plasma cells (activated B cells).\nComplement: C3b opsonization. MAC (membrane attack complex).\nInflammation: PRISH (Pain, Redness, Immobility, Swelling, Heat).\nVaccines: create immunological memory.",
+  "36":"Biology 9: Digestive System\nPathway: Mouth→Esophagus→Stomach→Small intestine (duodenum, jejunum, ileum)→Large intestine→Rectum.\nStomach pH=2. Enzymes: pepsin (proteins). Cells: mucous (protective bicarbonate), chief (pepsinogen), parietal (HCl + intrinsic factor for B12 absorption), G-cells (gastrin).\nSmall intestine: most digestion and absorption. Pancreatic enzymes (trypsin, chymotrypsin, lipase, amylase). Bile from liver/gallbladder emulsifies fats.\nBrush border enzymes: maltase, sucrase, lactase.\nHormones: Secretin (↑HCO3-), CCK (↑bile + enzymes), Gastrin (↑HCl), GIP (↑insulin).\nAbsorption: Villi and microvilli increase surface area. Nutrients enter portal circulation.",
+  "37":"Biology 10: Kidney and Skin\nNephron: Glomerulus (filtration)→Bowman's capsule→PCT (reabsorption 65%)→Loop of Henle (concentration)→DCT→Collecting duct.\nFiltration: driven by hydrostatic pressure in glomerulus.\nReabsorption: Na+ (active), water follows. Glucose and amino acids fully reabsorbed in PCT.\nSecretion: H+, K+, drugs secreted into filtrate.\nHormones: ADH (posterior pituitary) → collecting duct aquaporins → water reabsorption → concentrated urine. Aldosterone (adrenal cortex) → Na+ reabsorption/K+ secretion in DCT/collecting duct.\nRAAS: ↓BP → renin (kidney) → angiotensin I → ACE → angiotensin II → aldosterone + vasoconstriction + ADH release.\nSkin layers: Epidermis (keratinocytes, melanocytes, Langerhans cells), Dermis (collagen, elastin, vessels, nerves, hair follicles), Hypodermis/subcutaneous (fat).",
+  "38":"Biology 11: Muscular System\nSliding filament theory: Actin (thin filaments) slides over myosin (thick filaments). Sarcomere shortens; A band unchanged; H zone and I band decrease.\nSarcomere: Z-line to Z-line. Contains actin (I band) and myosin (A band). H zone = myosin only. M line = center.\nContraction: Motor neuron fires → ACh released → muscle depolarizes → Ca2+ released from SR → tropomyosin shifts → myosin heads bind actin → power stroke (ATP needed) → repeat.\nMuscle fiber types: Type I (slow twitch, oxidative, red, endurance). Type II (fast twitch, glycolytic, white, power).\nCardiac muscle: striated, involuntary, gap junctions (intercalated discs), myogenic.\nSmooth muscle: non-striated, involuntary, single nucleus, slow, found in viscera.",
+  "39":"Biology 12: Genetics and Evolution\nMendelian genetics: Dominant (1 copy expressed), Recessive (2 copies needed). Punnett square.\nDominance types: Complete, Codominance (both expressed), Incomplete (blending).\nHardy-Weinberg: p+q=1, p²+2pq+q²=1. Equilibrium requires: large population, random mating, no mutation, no migration, no selection.\nX-linked: Males (XY) affected by X-linked recessive traits more often than females.\nEvolution mechanisms: Natural selection, genetic drift, gene flow, mutation.\nSpeciation: Allopatric (geographic isolation), Sympatric (same location, reproductive isolation).",
+  "40":"Biochemistry 1: Amino Acids\n20 amino acids. R group determines function. All L-configuration except Gly (achiral). All have (S) CIP config except Cys (R).\nStructure at physiological pH: zwitterion (NH3+ and COO-).\npKa1 (~2): alpha-COOH. pKa2 (~9-10): alpha-NH3+. pKa3: side chain (if charged).\npI calculation: neutral side chain: average pKa1+pKa2. Basic (Lys, Arg, His): average pKa2+pKa3. Acidic (Asp, Glu): average pKa1+pKa3.\nProtein structure: 1° (peptide bonds), 2° (H-bonds, alpha helix & beta sheet), 3° (hydrophobic, H-bonds, disulfide bonds, ionic), 4° (multiple subunits).\nDenaturation: disrupts 2°, 3°, 4° but NOT 1° (peptide bonds survive).\nDisulfide bonds between cysteine residues (form cystine). Proline: disrupts 2° structure (rigid ring).",
+  "41":"Biochemistry 2: Enzymes\nEnzymes: biological catalysts. Don't change ΔG or equilibrium, only lower Ea. Catalyze forward AND reverse.\nKm = [S] at half Vmax. Lower Km = higher affinity. Vmax = maximum rate when all active sites saturated.\nMichaelis-Menten: v = Vmax[S]/(Km+[S]).\nLineweaver-Burk (double reciprocal plot): y-int = 1/Vmax, x-int = -1/Km.\nInhibition: Competitive (same active site, ↑Km, Vmax unchanged, overcome by ↑[S]). Uncompetitive (binds ES complex only, ↓Km AND ↓Vmax). Noncompetitive (binds E or ES equally, ↓Vmax, Km unchanged). Mixed (↓Vmax, Km changes).\nIrreversible inhibition: covalent bond, permanent.\nAllosteric regulation: sigmoidal curve (cooperativity). Positive effectors ↑activity. Feedback inhibition.\nPhosphorylation: catabolic enzymes activated, anabolic deactivated (generally). Zymogens: inactive precursors activated by cleavage.",
+  "42":"Biochemistry 3: Nonenzymatic Protein Function\nMotor proteins: Kinesin (anterograde, +end), Dynein (retrograde, -end), Myosin (actin-based movement).\nHemoglobin: 4 subunits (2α, 2β). Cooperative O2 binding (sigmoidal curve). Bohr effect. 2,3-BPG decreases O2 affinity (right shift). Fetal Hb (HbF) has higher O2 affinity than HbA.\nProtein analysis techniques: SDS-PAGE (separates by MW), Native PAGE (size+charge), Western blot (protein ID with antibodies), ELISA (quantify), X-ray crystallography, NMR (structure in solution).",
+  "43":"Biochemistry 4: Carbohydrates\nMonosaccharides: glucose (aldohexose), fructose (ketohexose), galactose.\nAnomers: α (OH below in Haworth) vs β (OH above). Anomeric carbon = C1 in aldoses.\nGlucose: most important fuel. D-configuration (all naturally occurring carbs are D).\nDisaccharides: maltose (glucose+glucose, α1-4), sucrose (glucose+fructose, α1-2), lactose (galactose+glucose, β1-4).\nPolysaccharides: Starch (amylose α1-4, amylopectin α1-4 + α1-6 branches), Glycogen (highly branched α1-6, liver+muscle), Cellulose (β1-4, structural, indigestible).\nGlycoproteins: carbohydrates on cell surface (blood type antigens, signaling).",
+  "44":"Biochemistry 5: Lipids\nFatty acids: Saturated (no double bonds, solid at RT, high MP). Unsaturated (cis double bonds, kinked, liquid at RT, low MP). Trans fats (straight, high MP, cardiovascular risk).\nPhospholipids: amphipathic (hydrophilic head + hydrophobic tails). Form bilayer.\nCholesterol: in membranes (increases fluidity at low T, decreases at high T). Precursor to steroid hormones, bile acids, vitamin D.\nGlycerophospholipids: glycerol backbone. Sphingolipids: sphingosine backbone.\nSteroids: 4-ring structure. Derived from cholesterol. Hormones, cholesterol, bile acids.",
+  "45":"Biochemistry 6: DNA and Biotechnology\nDNA structure: double helix. Anti-parallel strands. A-T (2 H-bonds), G-C (3 H-bonds).\nDNA replication: semi-conservative. Origin of replication. Helicase (unwinds), Primase (RNA primer), DNA pol III (synthesizes 5'→3'), DNA pol I (removes primer), Ligase (seals nicks). Leading strand continuous, Lagging strand Okazaki fragments.\nRepair: Proofreading (3'→5' exonuclease activity of DNA pol). Mismatch repair (G2, MSH2/MLH1). Nucleotide excision repair (thymine dimers). Base excision repair.\nMutations: Silent, Nonsense (premature stop), Missense (wrong AA), Frameshift (insertion/deletion).\nOncogenes: promote cell division (gain of function). Tumor suppressors: slow division (loss of function, p53, Rb).\nBiotechnology: PCR, gel electrophoresis, Southern/Northern/Western blot, CRISPR, restriction enzymes.",
+  "46":"Biochemistry 7: RNA and Genetic Code\nCentral dogma: DNA → RNA → Protein.\nmRNA: template for translation. rRNA: ribosome component. tRNA: carries amino acids (anticodon pairs with codon).\nCodon = 3 nucleotides. 64 codons, 20 amino acids. Degenerate (multiple codons per AA). Start codon: AUG (Met). Stop codons: UAA, UAG, UGA.\nWobble: 3rd base of codon allows flexibility. Silent mutations often at 3rd position.\nTranscription (nucleus): promoter → RNA pol binds → synthesis 5'→3'. mRNA processing: 5' cap, poly-A tail, splicing (introns removed, exons joined).\nTranslation (ribosome, cytoplasm): initiation (AUG) → elongation (peptide bond formation) → termination (stop codon). A site (incoming tRNA), P site (growing chain), E site (exiting tRNA).\nPoint mutations: missense (wrong AA), nonsense (premature stop), silent (no change).",
+  "47":"Biochemistry 8: Biological Membranes\nFluid mosaic model: phospholipid bilayer with embedded proteins. Dynamic, fluid at physiological temperature.\nTransport: Simple diffusion (lipid soluble, no protein, down gradient). Facilitated diffusion (channel/carrier protein, down gradient, NO ATP). Active transport primary (ATP required, against gradient). Active transport secondary (ion gradient provides energy, Na+/K+ gradient drives co-transport).\nNa+/K+ ATPase: 3 Na+ out, 2 K+ in per ATP. Maintains membrane potential.\nGLUT transporters: facilitated diffusion. SGLT: sodium-glucose co-transport.\nEndocytosis: phagocytosis (cells), pinocytosis (fluids), receptor-mediated (specific ligands).\nMembrane potential: resting = -70mV in neurons. Inside negative (high K+, low Na+).",
+  "48":"Biochemistry 9: Carbohydrate Metabolism I\nGlycolysis (cytoplasm): Glucose → 2 pyruvate. Net: 2 ATP + 2 NADH. Key enzymes: hexokinase (glucose→G6P), PFK-1 (F6P→F1,6BP, rate-limiting, regulated by ATP/AMP/citrate), pyruvate kinase.\nGlycogenesis: glucose→glycogen. Glycogen synthase + branching enzyme. Stimulated by insulin, inhibited by glucagon.\nGlycogenolysis: glycogen→glucose-1-phosphate. Glycogen phosphorylase. Stimulated by glucagon/epinephrine.\nGluconeogenesis (liver, kidney cortex): Non-carbohydrate precursors→glucose. Uses pyruvate carboxylase, PEPCK, F1,6BPase, G6Pase. Opposite of glycolysis at 3 irreversible steps. Stimulated by glucagon.\nPentose phosphate pathway: produces NADPH (for fatty acid synthesis and antioxidants) and ribose-5-phosphate (for nucleotides).",
+  "49":"Biochemistry 10: Aerobic Respiration\nPyruvate dehydrogenase (PDH): pyruvate → acetyl-CoA + CO2 + NADH. In mitochondrial matrix. Requires: TPP, lipoic acid, CoA, FAD, NAD. Inhibited by: NADH, acetyl-CoA, ATP.\nTCA cycle (citric acid cycle, Krebs): 1 acetyl-CoA → 3 NADH + 1 FADH2 + 1 GTP + 2 CO2. Key enzymes: citrate synthase (regulated by ATP/NADH), isocitrate dehydrogenase (rate-limiting), alpha-ketoglutarate dehydrogenase.\nElectron transport chain (inner mitochondrial membrane): NADH→Complex I→CoQ→Complex III→Cytochrome c→Complex IV (O2→H2O). FADH2→Complex II→CoQ. Protons pumped across inner membrane.\nATP synthase (Complex V): proton gradient drives ATP synthesis (chemiosmosis).\nATP yield per glucose: ~30-32 ATP total (2 glycolysis + 2 PDH + 6 TCA per turn × 2 turns).",
+  "50":"Biochemistry 11: Lipid and Amino Acid Metabolism\nBeta-oxidation (mitochondrial matrix): fatty acids → acetyl-CoA + NADH + FADH2. Carnitine shuttle transports acyl groups across inner mitochondrial membrane.\nFatty acid synthesis (cytoplasm): acetyl-CoA + NADPH → fatty acids. Acetyl-CoA carboxylase (rate-limiting). Fatty acid synthase complex.\nKetone bodies: acetoacetate, beta-hydroxybutyrate, acetone. Made in liver during fasting/starvation. Used by brain, heart, muscle.\nAmino acid catabolism: transamination (transfers amino group), oxidative deamination (releases NH4+).\nUrea cycle (liver): NH4+ + CO2 → urea (non-toxic). Carbamoyl phosphate synthetase I (rate-limiting).\nNitrogen balance: positive (growing), negative (starvation), neutral (healthy adult).",
+  "51":"Biochemistry 12: Bioenergetics and Regulation\nATP: high-energy phosphate bonds (~30 kJ/mol per hydrolysis). Stabilized by resonance after hydrolysis.\nFed state: ↑glucose→↑insulin→↑glycolysis, glycogenesis, lipogenesis, protein synthesis.\nFasted state: ↓glucose→↑glucagon→↑glycogenolysis, gluconeogenesis, lipolysis, ketogenesis.\nKey regulatory enzymes: PFK-1 (glycolysis), pyruvate carboxylase (gluconeogenesis), acetyl-CoA carboxylase (FA synthesis), hormone-sensitive lipase (lipolysis).\nUncoupling: dissipates proton gradient as heat (not ATP). Uncoupling proteins (thermogenin in brown fat). DNP = chemical uncoupler.\nAMP/ATP ratio: key signal for cellular energy status. AMP-kinase activated by high AMP.",
+  "52":"Behavioral Sciences 1: Biology and Behavior\nBrain regions: Hindbrain (cerebellum=coordination/balance; medulla=vital functions; reticular formation=alertness). Midbrain (superior/inferior colliculi=visual/auditory reflex). Forebrain: Thalamus (relay), Hypothalamus (homeostasis, 4 F's: feeding, fighting, fleeing, sex), Basal ganglia (smooth movement), Limbic (amygdala=fear/aggression, hippocampus=memory, septal nuclei=pleasure).\nCerebral cortex lobes: Frontal (executive function, Broca's area-speech production), Parietal (touch, pressure), Occipital (vision), Temporal (hearing, Wernicke's area-speech comprehension).\nNeurotransmitters: ACh (somatic/PNS), Dopamine (movement, reward-mesolimbic), Serotonin (mood/sleep), GABA (inhibitory/stabilizer), Glutamate (excitatory), NE (wakefulness/fight-or-flight), Endorphins (pain relief).\nResearchers: Broca (speech production area), Wernicke (speech comprehension), Freud (psychoanalytic).",
+  "53":"Behavioral Sciences 2: Sensation and Perception\nAbsolute threshold: minimum stimulus energy to activate sensory system.\nDifference threshold/JND: minimum detectable difference between two stimuli.\nWeber's Law: JND/I = k (constant). Larger baseline = larger change needed to detect difference.\nSignal Detection Theory: detecting signal from noise depends on sensitivity and response bias.\nVision: Rods (low light, peripheral), Cones (color, fovea). Trichromatic theory (3 types of cones). Opponent process theory (color afterimages).\nHearing: Sound waves → tympanic membrane → ossicles → cochlea → hair cells → auditory nerve.\nGate control theory of pain: non-pain stimuli can block pain signals.\nPerception: Gestalt principles (proximity, similarity, continuity, closure). Top-down vs bottom-up processing.",
+  "54":"Behavioral Sciences 3: Learning and Memory\nClassical conditioning (Pavlov): US→UR (unconditioned). CS paired with US → CS→CR (conditioned). Extinction, spontaneous recovery, generalization, discrimination.\nOperant conditioning (Skinner): behavior→consequence. Positive reinforcement (+something good). Negative reinforcement (remove bad). Positive punishment (+bad). Negative punishment (remove good).\nReinforcement schedules: Fixed ratio (most responding), Variable ratio (most resistance to extinction, gambling). Fixed interval (scallop effect). Variable interval (steady responding).\nMemory: Encoding→Storage→Retrieval. Sensory→Short-term (7±2 items, 20-30s)→Long-term (unlimited). Declarative (explicit): episodic+semantic. Procedural (implicit). Working memory.\nForgetting: Decay, interference (proactive/retroactive), retrieval failure.",
+  "55":"Behavioral Sciences 4: Cognition and Language\nProblem solving: Trial-and-error, algorithms (guaranteed), heuristics (rules of thumb, faster but can err).\nHeuristics: Availability (ease of recall), Representativeness (matching prototype).\nBiases: Confirmation bias, Hindsight bias, Anchoring, Framing effect.\nFunctional fixedness: using objects only in typical ways. Mental set: same approach to all problems.\nLanguage development: cooing→babbling→holophrases→telegraphic speech→full sentences. Critical period for language acquisition.\nStages of language: Broca's area (production), Wernicke's area (comprehension).\nConsciousness: sleep stages (NREM 1-3, REM). REM: dreaming, memory consolidation.",
+  "56":"Behavioral Sciences 5: Motivation and Emotion\nMaslow's hierarchy (bottom→top): Physiological→Safety→Love/Belonging→Esteem→Self-actualization.\nIntrinsic vs extrinsic motivation. Overjustification effect: extrinsic rewards can undermine intrinsic motivation.\nDrive reduction theory: reduce physiological needs (hunger, thirst).\nArousal theory: optimal performance at moderate arousal (Yerkes-Dodson inverted-U).\nHunger: leptin (satiety from fat cells), ghrelin (hunger from stomach), hypothalamic regulation.\nEmotion theories: James-Lange (body→emotion), Cannon-Bard (simultaneous body+emotion), Schachter-Singer/Two-factor (arousal + cognitive label), Facial feedback hypothesis.\nStress: Acute (SNS activation), Chronic (HPA axis, cortisol). Selye's GAS: alarm→resistance→exhaustion.",
+  "57":"Behavioral Sciences 6: Identity and Personality\nFreud: Id (pleasure principle), Ego (reality principle), Superego (morality). Defense mechanisms: repression, projection, displacement, rationalization, sublimation, reaction formation.\nErikson: 8 psychosocial stages. Trust vs Mistrust (infancy)→...→Integrity vs Despair (old age).\nPiaget: Sensorimotor (0-2)→Preoperational (2-7)→Concrete operational (7-12)→Formal operational (12+).\nKohlberg: moral development: Preconventional→Conventional→Postconventional.\nPersonality theories: Big Five (OCEAN: Openness, Conscientiousness, Extraversion, Agreeableness, Neuroticism). Bandura: self-efficacy, observational learning.\nSelf-concept, self-esteem, self-efficacy. Locus of control (internal vs external). Learned helplessness.",
+  "58":"Behavioral Sciences 7: Psychological Disorders\nSchizophrenia: Positive symptoms (hallucinations, delusions, disorganized speech). Negative symptoms (flat affect, alogia, avolition, anhedonia). Dopamine hypothesis.\nDepression: Anhedonia, sleep changes, appetite changes, concentration problems, guilt, suicidal ideation. Serotonin/norepinephrine involved.\nBipolar: Manic episodes (elevated mood, decreased sleep, grandiosity, impulsivity). Bipolar I (manic+depressive), Bipolar II (hypomanic+depressive).\nAnxiety disorders: GAD, panic disorder, phobias, OCD (obsessions+compulsions), PTSD.\nPersonality disorders: Cluster A (odd/eccentric), B (dramatic: borderline, narcissistic, antisocial), C (anxious: avoidant, dependent).\nSomatic symptom disorders: physical symptoms without organic cause.",
+  "59":"Behavioral Sciences 8: Social Processes\nAttitudes: ABC (Affective, Behavioral, Cognitive). Can be explicit or implicit.\nAttitude change: Persuasion (central route=careful thinking, peripheral route=cues).\nCognitive dissonance: discomfort from conflicting beliefs/behaviors→change attitude.\nConformity: Asch (line experiment). Informational vs normative social influence.\nObedience: Milgram experiment. Authority, foot-in-door, diffusion of responsibility.\nSocial facilitation (Zajonc): presence of others→arousal→dominant response strengthened (helps easy tasks, hurts hard tasks).\nSocial loafing: less effort in groups. Bystander effect: diffusion of responsibility in groups. Deindividuation: loss of self in crowds.\nGroupthink: conformity pressure suppresses dissent in group decision-making.",
+  "60":"Behavioral Sciences 9: Social Interaction\nAttribution theory: Dispositional (internal, personality) vs Situational (external, circumstances).\nFundamental attribution error (FAE): overestimate dispositional factors for OTHERS' behavior.\nSelf-serving bias: attribute own success to internal, failures to external.\nActor-observer bias: self=situational, others=dispositional.\nStatus: Ascribed (involuntary) vs Achieved (voluntary). Master status.\nRoles: Role conflict (multiple roles), Role strain (one role).\nPrejudice: negative attitude toward group. Discrimination: behavior based on prejudice. Stereotypes: beliefs about group.\nIn-group vs out-group bias. Contact hypothesis (reduces prejudice).",
+  "61":"Behavioral Sciences 10: Social Thinking\nSocial cognition: schemas, heuristics, biases.\nAttachment styles: Secure (consistent caregiver), Anxious/Ambivalent (inconsistent), Avoidant (unresponsive), Disorganized (abusive).\nAggression: biological (hormones, genetics), environmental (frustration, social learning).\nProsocial behavior: altruism, bystander intervention factors (notice, responsibility, know what to do, decide, act).\nCognitive dissonance → attitude change or behavior rationalization.\nPrimacy and recency effects in impression formation.\nHalo effect: one positive trait colors perception of all traits.",
+  "62":"Behavioral Sciences 11: Social Structure\nSociological theories: Functionalism (Durkheim, society maintains equilibrium), Conflict theory (Marx, power/inequality), Symbolic interactionism (Mead, meaning from interaction).\nSocial institutions: family, religion, education, economy, government.\nCulture: norms (formal/informal), values, beliefs, material vs non-material.\nSocialization: primary (family), secondary (school, peers, media).\nDemographics: fertility rate, birth rate, mortality rate, migration. Demographic transition model.",
+  "63":"Behavioral Sciences 12: Social Stratification\nSocial class: based on income, wealth, occupation, education.\nSocial mobility: vertical (up/down), horizontal (same level). Intragenerational (lifetime), Intergenerational (across generations).\nMeritocracy vs ascription.\nHealth disparities: lower SES → worse health outcomes. Race/ethnicity, gender, age affect health.\nEpidemiology: Incidence (new cases), Prevalence (all cases), Mortality, Morbidity.\nHealthcare: Medicare (65+, disability), Medicaid (low income). ACA.\nGlobal health: social determinants of health.",
+  "64":"Physics 1: Kinematics and Dynamics\nVectors (magnitude+direction): displacement, velocity, acceleration, force. Scalars: distance, speed, mass.\nKinematics equations: vf = vi + at; Δx = vi·t + ½at²; vf² = vi² + 2aΔx; Δx = v̄·t.\nProjectile motion: horizontal velocity constant (no air resistance), vertical: freefall (a = -9.8 m/s² ≈ -10).\nNewton's 1st: inertia. 2nd: F=ma. 3rd: equal and opposite reaction.\nFriction: f = μN. Static (object at rest), Kinetic (sliding).\nTorque: τ = rF sinθ. CCW positive. Rotational equilibrium: Στ = 0. Translational: ΣF = 0.\nCircular motion: centripetal force Fc = mv²/r (directed toward center).",
+  "65":"Physics 2: Work and Energy\nWork: W = Fd cosθ. Energy in joules (J).\nKE = ½mv². PE_gravity = mgh. PE_spring = ½kx².\nConservation of energy: KE + PE = constant (no friction). mgh = ½mv² → v = √(2gh).\nWork-energy theorem: Wnet = ΔKE.\nPower: P = W/t = Fv. Watts (W).\nSimple machines: mechanical advantage = load/effort = effort distance/load distance.\nSprings: F = -kx (Hooke's law). SHM: T = 2π√(m/k) for spring, T = 2π√(L/g) for pendulum.",
+  "66":"Physics 3: Thermodynamics\n0th law: thermal equilibrium. 1st law: ΔU = q + w (conservation of energy). 2nd law: ΔS_universe > 0 (spontaneous processes). 3rd law: S → 0 as T → 0 K.\nHeat transfer: Conduction (direct contact), Convection (fluid movement), Radiation (EM waves).\nSpecific heat: q = mcΔT. Latent heat: q = mL (phase changes, no ΔT).\nThermodynamic processes: Isothermal (ΔT=0, ΔU=0), Adiabatic (q=0), Isobaric (ΔP=0), Isochoric (ΔV=0).\nIdeal gas: PV = nRT. ΔU = (3/2)nRΔT.\nCarnot efficiency: η = 1 - Tc/Th (maximum efficiency of heat engine).",
+  "67":"Physics 4: Fluids\nPressure: P = F/A. Gauge pressure = absolute − atmospheric.\nHydrostatic pressure: P = ρgh. Absolute pressure: P_abs = P_0 + ρgh.\nBuoyancy (Archimedes): F_b = ρ_fluid × V_displaced × g. Object floats if density < fluid density.\nFlow: Q = Av (continuity equation: A1v1 = A2v2). Flow rate constant.\nBernoulli: P + ½ρv² + ρgh = constant. As v↑, P↓ (Venturi effect).\nPoiseuille's Law: Q = πΔPr⁴/(8ηL). Flow ∝ r⁴ (huge effect of radius changes).\nViscosity: resistance to flow. Blood viscosity affected by hematocrit.",
+  "68":"Physics 5: Electrostatics\nCoulomb's Law: F = kq1q2/r². k = 9×10⁹ N·m²/C².\nElectric field: E = F/q = kQ/r². Field lines from + to -.\nElectric potential: V = kQ/r. Potential energy: U = qV = kq1q2/r.\nCapacitors: C = Q/V = ε₀A/d. Energy stored: U = ½CV².\nMagnetic force: F = qv×B (F = qvBsinθ). Right-hand rule.\nMagnetic field from wire: B = μ₀I/2πr.\nLorentz force: F = q(E + v×B).",
+  "69":"Physics 6: Circuits\nOhm's Law: V = IR. R = ρL/A.\nSeries: R_total = R1+R2+... Same current. Voltages add.\nParallel: 1/R_total = 1/R1+1/R2+... Same voltage. Currents add.\nKirchhoff's: Junction rule (Σ_in = Σ_out). Loop rule (ΣΔV = 0).\nPower: P = IV = I²R = V²/R.\nRC circuits: capacitor charges/discharges exponentially. τ = RC (time constant).\nAlternating current: V_rms = V_peak/√2. Impedance Z = √(R² + (XL-XC)²).",
+  "70":"Physics 7: Waves and Sound\nWave equation: v = fλ. Transverse (light) vs Longitudinal (sound).\nSound speed: v = √(B/ρ). Faster in solids > liquids > gases.\nIntensity: I = P/A. Decibels: β = 10 log(I/I₀). I₀ = 10⁻¹² W/m².\nDoppler effect: f_obs = f_source × (v±v_obs)/(v∓v_source). Source approaching → higher f; receding → lower f.\nStanding waves: string fixed both ends: harmonics fn = nv/2L. Open pipe (both ends): fn = nv/2L. Closed pipe: fn = nv/4L (odd harmonics only).\nResonance occurs when driving frequency = natural frequency.",
+  "71":"Physics 8: Light and Optics\nEM spectrum (short to long λ): gamma, X-ray, UV, visible (ROYGBIV), IR, microwave, radio.\nReflection: angle of incidence = angle of reflection.\nRefraction: Snell's law n1sinθ1 = n2sinθ2. n = c/v. Light slows in denser medium.\nTotal internal reflection: occurs when θ > critical angle (light going from dense to less dense).\nThin lens equation: 1/f = 1/do + 1/di. Magnification: m = -di/do.\nConverging lens (f>0): real inverted image when do>f. Virtual erect image when do<f.\nDiverging lens (f<0): always virtual, erect, reduced image.\nConvex mirror: always virtual, erect, reduced. f = R/2.\nHydrogen emission: Lyman (UV, n→1), Balmer (visible, n→2), Paschen (IR, n→3).",
+  "72":"Physics 9: Atomic and Nuclear\nPhotoelectric effect: photon hits metal → ejects electron if f > threshold. KE_max = hf − φ (work function). Einstein's Nobel Prize.\nBohr model: electrons in discrete orbits. E = -13.6/n² eV for hydrogen. Emission when n decreases.\nNuclear decay: Alpha (emit He-4 nucleus, Z-2, A-4). Beta-minus (neutron→proton+e-, Z+1). Beta-plus (proton→neutron+e+, Z-1). Gamma (photon, no change in A or Z).\nAlpha: highest ionizing power, lowest penetration. Gamma: lowest ionizing, highest penetration.\nNuclear reactions: Fission (heavy nucleus splits). Fusion (light nuclei combine). E=mc² (mass-energy equivalence).\nHalf-life: t1/2 = 0.693/λ. First-order decay.",
+  "73":"Physics 10: Mathematics\nLogarithms: log(ab) = log(a)+log(b). log(a/b) = log(a)-log(b). log(a^n) = n·log(a).\nMCAT log approximation: -log(a×10^-n) ≈ n - log(a). Since log(1)=0, log(2)≈0.3, log(3)≈0.5, log(5)≈0.7.\nVectors: addition (tip-to-tail), dot product (A·B = |A||B|cosθ), cross product (A×B = |A||B|sinθ).\nTrig: sin30°=0.5, cos30°=√3/2≈0.87, sin45°=cos45°=√2/2≈0.71, sin60°=√3/2, cos60°=0.5.\nEstimation: round to 1 sig fig, adjust at end.\nProportional reasoning: if y∝x^n, then doubling x multiplies y by 2^n.",
+  "74":"Physics 11: Research Design\nExperimental variables: Independent (manipulated), Dependent (measured), Controlled (held constant).\nStudy types: Randomized controlled trial (gold standard, random assignment). Cohort (follow exposed vs unexposed). Case-control (retrospective, cases vs controls). Cross-sectional (snapshot). Meta-analysis (combines studies).\nBias: selection bias, observation/Hawthorne effect, recall bias, confounding variables.\nBlinding: single blind (subjects), double blind (subjects AND researchers). Placebo.\nValidity: internal (the study measures what it claims), external (generalizable).\nStatistical significance: p-value < 0.05 typically. Confidence intervals. Type I error (false positive, α). Type II error (false negative, β).",
+  "75":"Physics 12: Statistical Reasoning\nMeasures of central tendency: Mean (average), Median (middle value, robust to outliers), Mode (most frequent).\nVariability: Range, Standard deviation (σ), Variance (σ²).\nNormal distribution: 68% within 1 SD, 95% within 2 SD, 99.7% within 3 SD.\nCorrelation coefficient r: -1 to +1. r=+1 perfect positive, r=-1 perfect negative, r=0 no linear correlation. Correlation ≠ causation.\nHypothesis testing: H0 (null), Ha (alternative). p-value: probability of results given H0 is true. Low p → reject H0.\nRelative risk: RR = (risk exposed)/(risk unexposed). Odds ratio ≈ RR when disease is rare.\nSensitivity (TP rate), Specificity (TN rate). PPV, NPV."
+};
+
+// ─── APP STATE ───
+let appState = {
+  apiKey: '', xp: 0, level: 1, streak: 0, lastStudyDate: '',
+  totalAnswered: 0, totalCorrect: 0,
+  subjectStats: {},
+  sm2Cards: {},
+  sessionHistory: [],
+  activityLog: {}
+};
+
+let quizState = {
+  questions: [], currentIndex: 0,
+  correct: 0, wrong: 0,
+  wrongItems: [],
+  currentSubject: null, currentTopic: null,
+  hintsUsed: 0, rated: false,
+  isDue: false
+};
+
+// ─── PERSISTENCE ───
+function saveState(){try{localStorage.setItem('mcat_state',JSON.stringify(appState));}catch(e){}}
+function loadState(){
+  try{
+    const s = localStorage.getItem('mcat_state');
+    if(s) appState = {...appState,...JSON.parse(s)};
+  }catch(e){}
+}
+
+// ─── VIEWS ───
+function showView(id){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+function setNav(key){
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  const el = document.getElementById('nav-'+key);
+  if(el) el.classList.add('active');
+}
+
+// ─── TOAST ───
+let toastTimer;
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>t.classList.remove('show'),2500);
+}
+
+// ─── API KEY ───
+function saveApiKey(){
+  const key = document.getElementById('apiKeyInput').value.trim();
+  if(!key.startsWith('AIza')){toast('❌ Invalid key. Gemini keys start with AIza'); return;}
+  appState.apiKey = key; saveState();
+  document.getElementById('apiSetupCard').style.display='none';
+  toast('✅ API key saved! Ready to generate questions.');
+}
+
+// ─── SUBJECT GRID ───
+function buildSubjectGrid(){
+  const grid = document.getElementById('subjectGrid');
+  grid.innerHTML = CURRICULUM.map(s=>{
+    const stats = appState.subjectStats[s.id] || {done:0,correct:0};
+    const pct = stats.done > 0 ? Math.round(stats.correct/stats.done*100) : 0;
+    const total = s.topics.length;
+    return `<div class="subject-card" style="--accent:${s.color}" onclick="openSubject('${s.id}');setNav('quiz')">
+      <div class="subject-icon">${s.icon}</div>
+      <div class="subject-name">${s.name}</div>
+      <div class="subject-count">${total} topics · Pages ${s.pages}</div>
+      <div class="subject-progress">
+        <div class="mini-bar"><div class="mini-fill" style="width:${pct}%;background:${s.color}"></div></div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function openSubject(subjectId){
+  const subj = CURRICULUM.find(s=>s.id===subjectId);
+  populateTopicView(subj);
+  showView('topicView');
+  setNav('quiz');
+}
+
+// ─── TOPIC VIEW ───
+function populateTopicView(subj){
+  const header = document.getElementById('topicHeader');
+  const list = document.getElementById('topicList');
+  if(!subj){
+    header.innerHTML = '<h2 style="font-size:1.3rem;margin-bottom:4px">All Topics</h2><p style="font-size:.8rem;color:var(--text2)">Select any topic to practice</p>';
+    list.innerHTML = CURRICULUM.map(s=>
+      `<div style="margin-bottom:8px">
+        <div class="section-title" style="color:${s.color}">${s.icon} ${s.name}</div>
+        ${s.topics.map(t=>topicItemHTML(t,s)).join('')}
+      </div>`
+    ).join('');
+  } else {
+    header.innerHTML = `<h2 style="font-size:1.3rem;margin-bottom:4px">${subj.icon} ${subj.name}</h2><p style="font-size:.8rem;color:var(--text2)">Pages ${subj.pages}</p>`;
+    list.innerHTML = subj.topics.map(t=>topicItemHTML(t,subj)).join('');
+  }
+}
+
+function topicItemHTML(t, subj){
+  const stats = (appState.sm2Cards[t.id])||{};
+  const done = Object.keys(stats).length;
+  const masteredCount = Object.values(stats).filter(c=>c.interval>=7).length;
+  return `<div class="topic-item" onclick="startTopicQuiz('${subj.id}','${t.id}')">
+    <div class="topic-info">
+      <div class="topic-name">${t.name}</div>
+      <div class="topic-meta">Page ${t.page} · ${t.subtopics.slice(0,3).join(', ')}${t.subtopics.length>3?'...':''}</div>
+    </div>
+    ${masteredCount>0?`<span class="topic-badge">✓ ${masteredCount}</span>`:''}
+    <svg viewBox="0 0 24 24" width="16" height="16" style="stroke:var(--text3);fill:none;stroke-width:2;flex-shrink:0;margin-left:6px"><polyline points="9 18 15 12 9 6"/></svg>
+  </div>`;
+}
+
+// ─── CHIP TOGGLE ───
+function toggleChip(el, groupId){
+  el.classList.toggle('active');
+}
+
+// ─── START QUIZ ───
+async function startTopicQuiz(subjId, topicId){
+  const subj = CURRICULUM.find(s=>s.id===subjId);
+  const topic = subj.topics.find(t=>t.id===topicId);
+  const difficulties = [...document.querySelectorAll('#diffChips .chip.active')].map(c=>c.dataset.diff);
+  const count = parseInt(document.getElementById('qCountSelect').value)||10;
+  const focus = document.getElementById('focusSelect').value;
+
+  if(!appState.apiKey){
+    showView('homeView'); setNav('home');
+    document.getElementById('apiSetupCard').style.display='block';
+    document.getElementById('apiSetupCard').scrollIntoView({behavior:'smooth'});
+    toast('⚠️ Please add your API key first');
+    return;
+  }
+
+  quizState = {questions:[], currentIndex:0, correct:0, wrong:0, wrongItems:[],
+    currentSubject:subj, currentTopic:topic, hintsUsed:0, rated:false, isDue:false};
+
+  showView('quizView'); setNav('quiz');
+  document.getElementById('genScreen').classList.add('show');
+  document.getElementById('activeQuiz').style.display='none';
+  document.getElementById('resultScreen').classList.remove('show');
+
+  await generateQuestions(subj, topic, count, difficulties, focus);
+}
+
+// ─── GENERATE QUESTIONS via Claude API ───
+async function generateQuestions(subj, topic, count, difficulties, focus){
+  const steps = ['gs1','gs2','gs3','gs4','gs5'];
+  let stepIdx = 0;
+
+  const stepInterval = setInterval(()=>{
+    if(stepIdx < steps.length-1){
+      document.getElementById(steps[stepIdx]).classList.remove('active');
+      document.getElementById(steps[stepIdx]).classList.add('done');
+      document.getElementById(steps[stepIdx]).querySelector('.gen-step-dot').textContent='✓';
+      stepIdx++;
+      document.getElementById(steps[stepIdx]).classList.add('active');
+    }
+  }, 1400);
+
+  // Build context from embedded page content
+  const pageContent = PAGE_CONTENT[String(topic.page)] || '';
+  const subtopicsStr = topic.subtopics.join(', ');
+  const diffStr = difficulties.join(', ');
+  const focusStr = focus === 'all' ? 'all cognitive levels (remember, apply, analyze)' : focus;
+
+  const prompt = `You are an expert MCAT exam writer. Generate exactly ${count} high-quality MCAT-style multiple choice questions about "${topic.name}" from the "${subj.name}" section of a MilesDown MCAT review sheet.
+
+SOURCE MATERIAL (Page ${topic.page}):
+${pageContent}
+
+SUBTOPICS TO COVER: ${subtopicsStr}
+DIFFICULTY MIX: ${diffStr} difficulty questions
+COGNITIVE FOCUS: ${focusStr}
+
+REQUIREMENTS:
+1. Each question MUST be answerable from the source material above
+2. Include clinical applications and MCAT-style passages when possible
+3. Distractors must be plausible common student mistakes
+4. Explanations must reference the correct concept clearly
+5. Distribute questions across all listed subtopics
+6. Mix question types: recall, application, analysis, graph interpretation
+
+Return ONLY a valid JSON array with NO markdown backticks, NO preamble. Each question object:
+{
+  "stem": "Question text (≤250 chars, can include chemical formulas or descriptions)",
+  "options": [
+    {"label":"A","text":"Option A text","correct":false,"explanation":"Why A is wrong"},
+    {"label":"B","text":"Option B text","correct":true,"explanation":"Why B is correct and the key concept"},
+    {"label":"C","text":"Option C text","correct":false,"explanation":"Why C is wrong"},
+    {"label":"D","text":"Option D text","correct":false,"explanation":"Why D is wrong"}
+  ],
+  "explanation": "Full 2-3 sentence worked solution explaining the concept and any clinical relevance",
+  "hints": ["First hint (conceptual direction, don't give answer)", "Second hint (more specific)"],
+  "difficulty": "easy|medium|hard",
+  "cognitive_level": "remember|apply|analyze",
+  "subtopic": "specific subtopic from the list",
+  "page": ${topic.page}
+}
+
+Generate exactly ${count} questions. CRITICAL: Return ONLY the JSON array, no other text.`;
+
+  try{
+    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${appState.apiKey}`;
+    const response = await fetch(geminiUrl,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        contents:[{parts:[{text:prompt}]}],
+        generationConfig:{
+          temperature:0.7,
+          maxOutputTokens:8192,
+          responseMimeType:'application/json'
+        }
+      })
+    });
+
+    clearInterval(stepInterval);
+    steps.forEach((s,i)=>{
+      const el = document.getElementById(s);
+      el.classList.remove('active');
+      el.classList.add('done');
+    });
+
+    if(!response.ok){
+      const err = await response.json();
+      throw new Error(err.error?.message || 'API error');
+    }
+
+    const data = await response.json();
+    if(data.error) throw new Error(data.error.message || 'Gemini API error');
+    let text = data.candidates[0].content.parts[0].text.trim();
+
+    // Strip any markdown fences if present
+    text = text.replace(/^```json\s*/,'').replace(/^```\s*/,'').replace(/\s*```$/,'').trim();
+
+    // Gemini sometimes wraps in object — unwrap if needed
+    if(text.startsWith('{') && text.includes('"questions"')){
+      text = JSON.parse(text).questions;
+      text = JSON.stringify(text);
+    }
+
+    const questions = JSON.parse(text);
+
+    // Validate and fix
+    const valid = questions.filter(q=>
+      q.stem && q.options && q.options.length===4 &&
+      q.options.filter(o=>o.correct).length===1
+    ).map((q,i)=>({...q, id:`${topic.id}_${Date.now()}_${i}`}));
+
+    if(valid.length === 0) throw new Error('No valid questions returned');
+
+    quizState.questions = valid;
+
+    setTimeout(()=>{
+      document.getElementById('genScreen').classList.remove('show');
+      document.getElementById('activeQuiz').style.display='block';
+      renderQuestion();
+    }, 400);
+
+  } catch(err){
+    clearInterval(stepInterval);
+    document.getElementById('genScreen').classList.remove('show');
+    document.getElementById('activeQuiz').style.display='block';
+    toast('❌ ' + (err.message || 'Generation failed. Check your Gemini API key at aistudio.google.com'));
+    // Show a fallback message
+    document.getElementById('activeQuiz').innerHTML = `
+      <div style="text-align:center;padding:40px 20px">
+        <div style="font-size:2rem;margin-bottom:12px">⚠️</div>
+        <h3 style="margin-bottom:8px">Generation Failed</h3>
+        <p style="color:var(--text2);font-size:.85rem;margin-bottom:20px">${err.message}</p>
+        <button class="action-btn primary" onclick="showView('homeView');setNav('home')">Back to Home</button>
+      </div>`;
+  }
+}
+
+// ─── RENDER QUESTION ───
+function renderQuestion(){
+  const q = quizState.questions[quizState.currentIndex];
+  if(!q) return;
+
+  const total = quizState.questions.length;
+  const idx = quizState.currentIndex;
+
+  document.getElementById('qCounter').textContent = `${idx+1} / ${total}`;
+  document.getElementById('qProgress').style.width = `${(idx/total)*100}%`;
+
+  // Meta tags
+  const diffColor = {easy:'green',medium:'amber',hard:'rose'}[q.difficulty||'medium']||'amber';
+  document.getElementById('qMeta').innerHTML = `
+    <span class="tag">${quizState.currentSubject.name}</span>
+    <span class="tag">${quizState.currentTopic.name}</span>
+    <span class="tag difficulty-badge diff-${q.difficulty||'medium'}">${(q.difficulty||'medium').toUpperCase()}</span>
+    <span class="tag">${q.cognitive_level||'apply'}</span>
+    ${q.subtopic?`<span class="tag">${q.subtopic}</span>`:''}
+    <span class="tag mono">p.${q.page||quizState.currentTopic.page}</span>
+  `;
+
+  // Stem
+  document.getElementById('qStem').innerHTML = q.stem;
+
+  // Hints
+  const hints = q.hints || [];
+  document.getElementById('hint1Btn').style.display = hints.length>0?'inline-block':'none';
+  document.getElementById('hint2Btn').style.display = 'none';
+  document.getElementById('hintBox').classList.remove('show');
+  document.getElementById('hintBox').textContent = '';
+  document.getElementById('hintPenalty').textContent = '';
+  quizState.hintsUsed = 0;
+
+  // Options
+  document.getElementById('optionsList').innerHTML = q.options.map(o=>`
+    <button class="opt-btn" onclick="selectOption(this,'${o.label}')" data-correct="${o.correct}" data-label="${o.label}">
+      <span class="opt-letter">${o.label}</span>
+      <span class="opt-text">${o.text}</span>
+    </button>
+  `).join('');
+
+  // Reset feedback
+  document.getElementById('feedbackPanel').classList.remove('show');
+  document.getElementById('nextBtn').style.display='none';
+  document.getElementById('distractorNote').style.display='none';
+  quizState.rated = false;
+  document.querySelectorAll('.rate-btn').forEach(b=>b.classList.remove('selected'));
+}
+
+// ─── SELECT OPTION ───
+function selectOption(btn, label){
+  const q = quizState.questions[quizState.currentIndex];
+  const opts = document.querySelectorAll('.opt-btn');
+  opts.forEach(o=>o.disabled=true);
+
+  const isCorrect = btn.dataset.correct==='true';
+  const correctOpt = q.options.find(o=>o.correct);
+
+  // Mark all options
+  opts.forEach(o=>{
+    if(o.dataset.correct==='true') o.classList.add('correct');
+    else if(o.dataset.label===label && !isCorrect) o.classList.add('wrong');
+  });
+
+  // Update stats
+  if(isCorrect){
+    quizState.correct++;
+    appState.totalCorrect++;
+    if(!appState.subjectStats[quizState.currentSubject.id])
+      appState.subjectStats[quizState.currentSubject.id]={done:0,correct:0};
+    appState.subjectStats[quizState.currentSubject.id].correct++;
+  } else {
+    quizState.wrong++;
+    quizState.wrongItems.push({q, selected:label});
+  }
+  appState.totalAnswered++;
+  if(!appState.subjectStats[quizState.currentSubject.id])
+    appState.subjectStats[quizState.currentSubject.id]={done:0,correct:0};
+  appState.subjectStats[quizState.currentSubject.id].done++;
+
+  // Log activity
+  const today = new Date().toISOString().split('T')[0];
+  appState.activityLog[today] = (appState.activityLog[today]||0) + 1;
+  updateStreak();
+  updateXP(isCorrect);
+  saveState();
+
+  // Show feedback
+  const fb = document.getElementById('feedbackPanel');
+  fb.classList.add('show');
+
+  const fbResult = document.getElementById('feedbackResult');
+  fbResult.className = 'feedback-result ' + (isCorrect?'correct':'wrong');
+  fbResult.textContent = isCorrect ? '✓ Correct!' : '✗ Incorrect';
+
+  if(!isCorrect){
+    const dn = document.getElementById('distractorNote');
+    dn.style.display='block';
+    const selectedOpt = q.options.find(o=>o.label===label);
+    dn.textContent = `You chose ${label}: ${selectedOpt?.explanation || 'Incorrect selection.'}`;
+  }
+
+  document.getElementById('explanationText').innerHTML =
+    `<strong>Correct answer (${correctOpt.label}):</strong> ${correctOpt.explanation}<br><br>${q.explanation||''}`;
+
+  document.getElementById('nextBtn').style.display='block';
+  document.getElementById('nextBtn').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+// ─── HINTS ───
+function showHint(n){
+  const q = quizState.questions[quizState.currentIndex];
+  const hints = q.hints || [];
+  const box = document.getElementById('hintBox');
+  quizState.hintsUsed = n;
+
+  if(n===1 && hints[0]){
+    box.textContent = '💡 ' + hints[0];
+    box.classList.add('show');
+    document.getElementById('hint2Btn').style.display = hints[1]?'inline-block':'none';
+    document.getElementById('hintPenalty').textContent = '';
+  } else if(n===2 && hints[1]){
+    box.textContent = '💡💡 ' + hints[1];
+    document.getElementById('hint2Btn').style.display='none';
+  }
+}
+
+// ─── NEXT QUESTION ───
+function nextQuestion(){
+  quizState.currentIndex++;
+  if(quizState.currentIndex >= quizState.questions.length){
+    showResults();
+  } else {
+    renderQuestion();
+    document.getElementById('app').scrollTop = 0;
+    window.scrollTo(0,0);
+  }
+}
+
+// ─── SM-2 RATING ───
+function rateDifficulty(quality){
+  if(quizState.rated) return;
+  quizState.rated = true;
+  document.querySelectorAll('.rate-btn').forEach(b=>b.classList.remove('selected'));
+  const map = {3:'rateEasy',4:'rateOk',2:'rateHard',1:'rateAgain'};
+  document.getElementById(map[quality])?.classList.add('selected');
+
+  const q = quizState.questions[quizState.currentIndex];
+  const tid = quizState.currentTopic.id;
+  if(!appState.sm2Cards[tid]) appState.sm2Cards[tid]={};
+  const key = q.stem.substring(0,40);
+
+  let card = appState.sm2Cards[tid][key] || {interval:1,repetitions:0,easiness:2.5};
+  card = sm2Update(card, quality);
+  appState.sm2Cards[tid][key] = card;
+  saveState();
+}
+
+function sm2Update(card, q){
+  if(q < 3){
+    card.repetitions = 0;
+    card.interval = 1;
+  } else {
+    if(card.repetitions === 0) card.interval = 1;
+    else if(card.repetitions === 1) card.interval = 6;
+    else card.interval = Math.round(card.interval * card.easiness);
+    card.repetitions++;
+  }
+  card.easiness = Math.max(1.3, card.easiness + 0.1 - (5-q)*(0.08+(5-q)*0.02));
+  card.due = Date.now() + card.interval * 86400000;
+  return card;
+}
+
+// ─── RESULTS ───
+function showResults(){
+  document.getElementById('activeQuiz').style.display='none';
+  const rs = document.getElementById('resultScreen');
+  rs.classList.add('show');
+
+  const total = quizState.questions.length;
+  const pct = Math.round(quizState.correct/total*100);
+
+  document.getElementById('resultRing').style.setProperty('--pct', pct+'%');
+  document.getElementById('resultPct').textContent = pct+'%';
+
+  const titles = [[90,'🏆 Excellent!','Outstanding mastery!'],[70,'✅ Good Work','Keep practicing!'],[50,'💪 Getting There','Review weak areas.'],[0,'📖 Keep Studying','More practice needed.']];
+  const [,title,sub] = titles.find(([min])=>pct>=min);
+  document.getElementById('resultTitle').textContent = title;
+  document.getElementById('resultSubtitle').textContent = sub;
+
+  document.getElementById('resultBreakdown').innerHTML = `
+    <div class="rb-row"><span>Correct</span><span class="green">${quizState.correct} / ${total}</span></div>
+    <div class="rb-row"><span>Incorrect</span><span class="rose">${quizState.wrong}</span></div>
+    <div class="rb-row"><span>Accuracy</span><span class="${pct>=70?'green':pct>=50?'amber':'rose'}">${pct}%</span></div>
+    <div class="rb-row"><span>Subject</span><span>${quizState.currentSubject.name}</span></div>
+    <div class="rb-row"><span>Topic</span><span>${quizState.currentTopic.name}</span></div>
+  `;
+
+  // Save session
+  appState.sessionHistory.unshift({
+    subject: quizState.currentSubject.name,
+    topic: quizState.currentTopic.name,
+    score: `${quizState.correct}/${total}`,
+    pct, date: new Date().toLocaleDateString()
+  });
+  if(appState.sessionHistory.length>20) appState.sessionHistory.pop();
+  saveState();
+
+  // Wrong answers review
+  if(quizState.wrongItems.length > 0){
+    document.getElementById('wrongReviewSection').style.display='block';
+    document.getElementById('wrongList').innerHTML = quizState.wrongItems.map(item=>{
+      const correct = item.q.options.find(o=>o.correct);
+      return `<div class="wrong-item">
+        <div class="stem">${item.q.stem}</div>
+        <div class="correct-ans">✓ Correct: (${correct.label}) ${correct.text}</div>
+        <div class="explain">${item.q.explanation||correct.explanation||''}</div>
+      </div>`;
+    }).join('');
+  } else {
+    document.getElementById('wrongReviewSection').style.display='none';
+  }
+}
+
+function retryQuiz(){
+  quizState.currentIndex=0; quizState.correct=0; quizState.wrong=0; quizState.wrongItems=[];
+  document.getElementById('resultScreen').classList.remove('show');
+  document.getElementById('activeQuiz').style.display='block';
+  renderQuestion();
+}
+
+function newQuiz(){
+  showView('topicView'); setNav('quiz');
+  populateTopicView(quizState.currentSubject);
+}
+
+function confirmExitQuiz(){
+  if(quizState.questions.length===0 || quizState.currentIndex===0){
+    showView('topicView'); setNav('quiz');
+    return;
+  }
+  if(confirm('Exit this quiz session?')){
+    showView('topicView'); setNav('quiz');
+  }
+}
+
+// ─── DUE SESSION (SM-2) ───
+function countDue(){
+  const now = Date.now();
+  let count = 0;
+  Object.values(appState.sm2Cards).forEach(topicCards=>{
+    Object.values(topicCards).forEach(card=>{
+      if(card.due && card.due <= now) count++;
+    });
+  });
+  return count;
+}
+
+function startDueSession(){
+  toast('Due review: coming in next session!');
+}
+
+// ─── XP AND STREAK ───
+function updateXP(correct){
+  const pts = correct ? 10 : 2;
+  appState.xp += pts;
+  appState.level = Math.floor(appState.xp/200)+1;
+  const xpInLevel = appState.xp % 200;
+  document.getElementById('xpFill').style.width = (xpInLevel/200*100)+'%';
+  document.getElementById('xpLabel').textContent = `${appState.xp} XP · Lv ${appState.level}`;
+}
+
+function updateStreak(){
+  const today = new Date().toISOString().split('T')[0];
+  if(appState.lastStudyDate === today) return;
+  const yesterday = new Date(Date.now()-86400000).toISOString().split('T')[0];
+  if(appState.lastStudyDate === yesterday){
+    appState.streak++;
+  } else if(appState.lastStudyDate !== today){
+    appState.streak = 1;
+  }
+  appState.lastStudyDate = today;
+  document.getElementById('streakBadge').textContent = `🔥 ${appState.streak}`;
+}
+
+// ─── DASHBOARD ───
+function refreshDash(){
+  document.getElementById('d-total').textContent = appState.totalAnswered;
+  document.getElementById('d-streak').textContent = appState.streak;
+  const acc = appState.totalAnswered > 0 ? Math.round(appState.totalCorrect/appState.totalAnswered*100)+'%' : '—';
+  document.getElementById('d-acc').textContent = acc;
+  document.getElementById('d-due').textContent = countDue();
+
+  // Heatmap (28 days)
+  const hm = document.getElementById('heatmap');
+  hm.innerHTML='';
+  for(let i=27;i>=0;i--){
+    const d = new Date(Date.now()-i*86400000).toISOString().split('T')[0];
+    const count = appState.activityLog[d]||0;
+    const level = count===0?0:count<5?1:count<10?2:count<20?3:4;
+    hm.innerHTML += `<div class="heat-cell" data-level="${level}" title="${d}: ${count} q's"></div>`;
+  }
+
+  // Subject bars
+  const sb = document.getElementById('subjBars');
+  const colors={gc:'#00d4c8',oc:'#f5a623',bio:'#4ade80',bc:'#c084fc',bs:'#ff6b8a',ph:'#60a5fa'};
+  const names={gc:'Gen Chem',oc:'Org Chem',bio:'Biology',bc:'Biochem',bs:'Behavioral',ph:'Physics'};
+  sb.innerHTML = CURRICULUM.map(s=>{
+    const st = appState.subjectStats[s.id]||{done:0,correct:0};
+    const pct = st.done>0?Math.round(st.correct/st.done*100):0;
+    return `<div class="sbar-row">
+      <span class="sbar-name">${names[s.id]||s.name}</span>
+      <div class="sbar-track"><div class="sbar-fill" style="width:${pct}%;background:${s.color}"></div></div>
+      <span class="sbar-pct">${pct}%</span>
+    </div>`;
+  }).join('');
+
+  // Recent
+  const rl = document.getElementById('recentList');
+  if(appState.sessionHistory.length===0){
+    rl.innerHTML='<div style="text-align:center;color:var(--text3);font-size:.8rem;padding:12px">No sessions yet</div>';
+    return;
+  }
+  rl.innerHTML = appState.sessionHistory.slice(0,8).map(s=>{
+    const cls = s.pct>=70?'good':s.pct>=50?'mid':'bad';
+    return `<div class="recent-item"><span class="subj">${s.topic}</span><span class="score ${cls}">${s.score} (${s.pct}%)</span></div>`;
+  }).join('');
+}
+
+// ─── REFERENCE NOTES ───
+const REF_DATA = CURRICULUM.flatMap(subj=>
+  subj.topics.map(t=>({
+    subject: subj.name, subjectId: subj.id, color: subj.color,
+    title: t.name, page: t.page, topicId: t.id,
+    subtopics: t.subtopics,
+    content: PAGE_CONTENT[String(t.page)] || ''
+  }))
+);
+
+function buildRefCards(){
+  renderRefCards(REF_DATA);
+}
+
+function renderRefCards(items){
+  document.getElementById('refCards').innerHTML = items.map((r,i)=>`
+    <div class="ref-card">
+      <div class="ref-card-head" onclick="toggleRef(${i})">
+        <div>
+          <div class="ref-card-title">${r.title}</div>
+          <div style="font-size:.7rem;color:${r.color};margin-top:2px">${r.subject}</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span class="ref-card-pg">p.${r.page}</span>
+          <svg class="ref-chevron" id="chev-${i}" viewBox="0 0 24 24" width="16" height="16" style="stroke:var(--text3);fill:none;stroke-width:2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+      </div>
+      <div class="ref-card-body" id="rb-${i}">
+        <div><strong style="color:var(--teal);font-size:.75rem">KEY SUBTOPICS:</strong><br>
+          <div style="display:flex;flex-wrap:wrap;gap:4px;margin:6px 0">
+            ${r.subtopics.map(s=>`<span class="tag">${s}</span>`).join('')}
+          </div>
+        </div>
+        ${r.content ? `<div style="margin-top:8px;white-space:pre-line;font-size:.78rem;color:var(--text2)">${r.content.substring(0,800)}${r.content.length>800?'...':''}</div>` : ''}
+        <button onclick="event.stopPropagation();openSubject('${r.subjectId}')" style="margin-top:10px;background:var(--teal3);border:1px solid rgba(0,212,200,.2);color:var(--teal);border-radius:99px;padding:6px 14px;font-size:.75rem;cursor:pointer;font-family:var(--font)">
+          ⚡ Practice This Topic
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleRef(i){
+  const body = document.getElementById('rb-'+i);
+  const chev = document.getElementById('chev-'+i);
+  body.classList.toggle('open');
+  chev.classList.toggle('open');
+}
+
+function filterRef(q){
+  const lq = q.toLowerCase();
+  const filtered = REF_DATA.filter(r=>
+    r.title.toLowerCase().includes(lq)||
+    r.subject.toLowerCase().includes(lq)||
+    r.subtopics.some(s=>s.toLowerCase().includes(lq))||
+    r.content.toLowerCase().includes(lq)
+  );
+  renderRefCards(filtered);
+}
+
+// ─── HOME STATS ───
+function refreshHome(){
+  document.getElementById('statTotal').textContent = appState.totalAnswered;
+  const acc = appState.totalAnswered>0?Math.round(appState.totalCorrect/appState.totalAnswered*100)+'%':'—';
+  document.getElementById('statAcc').textContent = acc;
+  const mastered = Object.values(appState.sm2Cards).reduce((sum,t)=>
+    sum+Object.values(t).filter(c=>c.interval>=7).length,0);
+  document.getElementById('statMastered').textContent = mastered;
+  document.getElementById('streakBadge').textContent = `🔥 ${appState.streak}`;
+  const xpInLevel = appState.xp % 200;
+  document.getElementById('xpFill').style.width = (xpInLevel/200*100)+'%';
+  document.getElementById('xpLabel').textContent = `${appState.xp} XP · Lv ${appState.level}`;
+
+  const due = countDue();
+  const banner = document.getElementById('dueBanner');
+  if(due > 0){ banner.style.display='flex'; document.getElementById('dueCount').textContent=due; }
+  else { banner.style.display='none'; }
+
+  if(!appState.apiKey){
+    document.getElementById('apiSetupCard').style.display='block';
+  } else {
+    document.getElementById('apiSetupCard').style.display='none';
+  }
+}
+
+function resetData(){
+  if(confirm('Reset ALL progress? This cannot be undone.')){
+    localStorage.removeItem('mcat_state');
+    const key = appState.apiKey;
+    appState={apiKey:key,xp:0,level:1,streak:0,lastStudyDate:'',totalAnswered:0,
+      totalCorrect:0,subjectStats:{},sm2Cards:{},sessionHistory:[],activityLog:{}};
+    saveState(); refreshHome(); refreshDash();
+    toast('Progress reset.');
+  }
+}
+
+// ─── INIT ───
+loadState();
+buildSubjectGrid();
+refreshHome();
+
+// Register service worker
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>{
+    navigator.serviceWorker.register('sw.js').catch(()=>{});
+  });
+}
+</script>
+</body>
+</html>
